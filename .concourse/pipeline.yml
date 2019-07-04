@@ -132,7 +132,7 @@ jobs:
       params:
         manifest: wekan-out/manifest.yml
         environment_variables:
-          OAUTH2_ENABLED: true
+          OAUTH2_ENABLED: "true"
           OAUTH2_LOGIN_STYLE: redirect
           OAUTH2_CLIENT_ID: ((oidc.id))
           OAUTH2_SECRET: ((oidc.secret))
