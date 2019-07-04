@@ -140,6 +140,11 @@ jobs:
           OAUTH2_AUTH_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/auth
           OAUTH2_USERINFO_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/userinfo
           OAUTH2_TOKEN_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/token
+          OAUTH2_ID_MAP: sub
+          OAUTH2_USERNAME_MAP: preferred_username
+          OAUTH2_FULLNAME_MAP: given_name
+          OAUTH2_EMAIL_MAP: email
+          OAUTH2_REQUEST_PERMISSIONS: 'openid profile email roles'
       on_success:
         put: notify
         params:
