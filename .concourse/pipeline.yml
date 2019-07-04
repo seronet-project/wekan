@@ -1,0 +1,139 @@
+resource_types:
+- name: slack-notification
+  type: docker-image
+  source:
+    repository: cfcommunity/slack-notification-resource
+    tag: v1.4.2
+
+resources:
+- name: wekan-staging
+  type: cf
+  icon: cloud-upload
+  source:
+    api: ((cf.api))
+    username: ((cf.username))
+    password: ((cf.password))
+    organization: ((cf.org))
+    space: ((cf.space))
+    skip_cert_check: false
+
+- name: seronet-wekan
+  type: git
+  icon: github-face
+  source:
+    uri: git@github.com:seronet-project/wekan.git
+    branch: master
+    depth: 5
+    disable_ci_skip: false
+    private_key: ((github-private-key))
+
+- name: wekan-wekan
+  type: git
+  icon: github-face
+  source:
+    uri: https://github.com/wekan/wekan.git
+    branch: master
+    depth: 30
+
+- name: notify
+  type: slack-notification
+  icon: chat-alert
+  source:
+    url: ((slack-webhook))
+
+- name: merge-timer
+  type: time
+  source:
+    start: 2:30 AM
+    stop: 3:30 AM
+    location: Europe/Berlin
+
+jobs:
+- name: merge-wekan
+  public: false
+  serial_groups: ["wekan"]
+  plan:
+  - get: merge-timer
+    trigger: true
+  - get: wekan-wekan
+#    trigger: true
+  - get: seronet-wekan
+  - task: merge-wekan-master
+    config:
+      platform: linux
+      inputs:
+      - name: seronet-master
+      outputs:
+      - name: seronet-master
+      image_resource:
+        type: docker-image
+        source:
+          repository: cloudfoundry/cflinuxfs3
+      run:
+        path: bash
+        args:
+        - -exc
+        - |
+          cd seronet-wekan
+          git config user.email "concourse@sero.network"
+          git config user.name "SeRoNet Concourse"
+          git remote add wekan https://github.com/wekan/wekan.git
+          git fetch wekan master
+          git merge --no-edit wekan/master
+  - put: seronet-wekan
+    params:
+      repository: seronet-wekan
+
+- name : deploy-wekan
+  serial_groups: ["wekan"]
+  plan:
+    - get: seronet-wekan
+      trigger: true
+    - task: wekan-prebuild
+      config:
+        platform: linux
+        inputs:
+          - name: seronet-wekan
+        outputs:
+          - name: wekan-out
+          - name: wekan-build
+        image_resource:
+          type: docker-image
+          source:
+            repository: node
+            tag: 8.15.1
+        run:
+          user: root
+          path: sh
+          args:
+          - -exc
+          - |
+            command -v meteor >/dev/null 2>&1 || curl https://install.meteor.com | sed s/--progress-bar/-sL/g | /bin/sh
+            # apt-get update && apt-get install -y build-essential nvi
+            node -v
+            export METEOR_ALLOW_SUPERUSER=true
+            meteor --version
+            cp -r seronet-wekan/. wekan-build
+            cd wekan-build
+            meteor npm install
+            meteor build --server-only --directory ../wekan-out
+            cp .concourse/manifest.yml ../wekan-out
+            cd ../wekan-out
+            # cd bundle/programs/server
+            # npm install
+            # cd -
+            node -v > bundle/.nvmrc
+            # echo '{"name":"Rocket.Chat","engines": {"node": "8.15.1"}}' > bundle/package.json
+            ls bundle
+            cd bundle/programs/server
+            npm install
+            cd -
+            chmod -R u+rw bundle
+    - put: wekan-staging
+      params:
+        manifest: wekan-out/manifest.yml
+#        environment_variables:
+      on_success:
+        put: notify
+        params:
+          text: "Wekan deployed."

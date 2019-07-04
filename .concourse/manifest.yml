@@ -1,0 +1,16 @@
+---
+applications:
+- name: board
+  memory: 2G
+  disk_quota: 2G
+  path: bundle
+  timeout: 180
+  command: "node main.js"
+  buildpacks:
+  - nodejs_buildpack
+  routes:
+  - route: "board.sero.network"
+  env:
+    ROOT_URL: https://board.sero.network
+    WITH_API: true
+    WEBHOOKS_ATTRIBUTES: cardId,listId,oldListId,boardId,comment,user,card,commentId
