@@ -117,23 +117,34 @@ jobs:
             cd wekan-build
             meteor npm install
             meteor build --server-only --directory ../wekan-out
+            cp -f fix-download-unicode/cfs_access-point.txt ../wekan-out/bundle/programs/server/packages/cfs_access-point.js
             cp .concourse/manifest.yml ../wekan-out
             cd ../wekan-out
-            # cd bundle/programs/server
-            # npm install
-            # cd -
             node -v > bundle/.nvmrc
             # echo '{"name":"Rocket.Chat","engines": {"node": "8.15.1"}}' > bundle/package.json
             ls bundle
             cd bundle/programs/server
-            npm install
+            rm -rf node_modules
+            meteor npm install
             cd -
             chmod -R u+rw bundle
     - put: wekan-staging
       params:
         manifest: wekan-out/manifest.yml
-#        environment_variables:
+        environment_variables:
+          OAUTH2_ENABLED: true
+          OAUTH2_LOGIN_STYLE: redirect
+          OAUTH2_CLIENT_ID: ((oidc.id))
+          OAUTH2_SECRET: ((oidc.secret))
+          OAUTH2_SERVER_URL: ((oidc.url))
+          OAUTH2_AUTH_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/auth
+          OAUTH2_USERINFO_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/userinfo
+          OAUTH2_TOKEN_ENDPOINT: /realms/((oidc.realm))/protocol/openid-connect/token
       on_success:
         put: notify
         params:
           text: "Wekan deployed."
+      on_failure:
+        put: notify
+        params:
+          text: "Wekan deployment failed." 
