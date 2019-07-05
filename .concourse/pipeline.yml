@@ -62,9 +62,9 @@ jobs:
     config:
       platform: linux
       inputs:
-      - name: seronet-master
+      - name: seronet-wekan
       outputs:
-      - name: seronet-master
+      - name: seronet-wekan
       image_resource:
         type: docker-image
         source:
