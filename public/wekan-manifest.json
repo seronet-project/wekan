@@ -5,12 +5,12 @@
   "lang": "en-US",
   "icons": [
     {
-      "src": "/wekan-logo-150.png",
+      "src": "/board-favicon-150.png",
       "type": "image/png",
       "sizes": "150x150"
     },
     {
-      "src": "/wekan-logo-150.svg",
+      "src": "/favicon_board.svg",
       "type": "image/svg+xml",
       "sizes": "150x150"
     }
