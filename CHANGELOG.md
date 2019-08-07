@@ -1,3 +1,41 @@
+# v3.07 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to make release sizes smaller by deleting phantomjs](https://github.com/wekan/wekan/commit/1fc3a1db2e663f149287b6e14053d536fb1a8a81).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.06 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix board query](https://github.com/wekan/wekan/pull/2587).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.05 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed LDAP group filtering bug on Snap settings](https://github.com/wekan/wekan/pull/2584).
+  Thanks to KuenzelIT.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.04 2019-08-06 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Snap: Use Meteor 1.6.0.1 dependencies on Snap on master branch](https://github.com/wekan/wekan/commit/74a4b28313e9cfedcb927e4496c0dd3800b1e6f9).
+  Thanks to xet7.
+- [Hide Admin Panel user delete button until someone has time to fix it](https://github.com/wekan/wekan/commit/b9a25ecfaca067d0392c83d97a0deb65e6e296dd).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.03 2019-08-04 Wekan release
 
 This release adds the following new features:
