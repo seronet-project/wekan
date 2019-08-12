@@ -1,4 +1,35 @@
-# v3.13 2019-08-09 Wekan relese
+# v3.15 2019-08-11 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/a1d883b22f73f4bef6d547f94dcb900f475fcb41).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.14 2019-08-11 Wekan release
+
+This release adds the following new features:
+
+- [On wekan master specifying ATTACHMENTS_STORE_PATH, it will try its best keeping original attachments, only newer
+  attachments will be stored into specified path](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+- [Made image upload in summernote as attachment to wekan board instead of base64 string,
+  which would make the comments use less bytes and be able to take advantage of using local file system feature
+  as attachment](https://github.com/wekan/wekan/pull/2608).
+  Thanks to whowillcare.
+
+and fixes the following bugs:
+
+- [Fix bug: Unable to disable richer comment editor](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+- [Changed rm to rm -f in wekan snap build, and add packages that somehow didn't get install during snapcraft
+  build](https://github.com/wekan/wekan/pull/2608).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.13 2019-08-09 Wekan release
 
 Update translations. Thanks to translators.
 
