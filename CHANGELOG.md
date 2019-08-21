@@ -1,9 +1,23 @@
-# Upcoming Wekan release
+# v3.23 2019-08-20 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix login did not work](https://github.com/wekan/wekan/commit/b2deab544bfeea49017bec27f92f1269b0b7ec43).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.22 2019-08-20 Wekan release
 
 This release adds the following new features:
 
 - [Wrap minicard text labels to multiple rows](https://github.com/wekan/wekan/commit/af830812dbbf7d766a754d937308b11373c66e5a).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix: Some users cannot switch views or languages](https://github.com/wekan/wekan/issues/2630).
+  Thanks to xet7 and justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
