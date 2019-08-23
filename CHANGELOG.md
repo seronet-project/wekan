@@ -1,3 +1,27 @@
+# v3.25 2019-08-23 Wekan release
+
+This release adds the following new features:
+
+- [Limit card width to fixed size](https://github.com/wekan/wekan/commit/0dd3ff29f2b558bc912b330f178347035dcc46c7).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix](https://github.com/wekan/wekan/pull/2645) [selecting user accounts when importing from Trello](https://github.com/wekan/wekan/issues/2638).
+  Thanks to justrinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.24 2019-08-22 Wekan release
+
+This release fixes the following bugs:
+
+- [Snap: Delete old MongoDB log, and log to syslog instead, because syslog usually already has
+  log rotation](https://github.com/wekan/wekan/commit/cc792ddd57691bb54972c73b9c861c768fce8c34).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.23 2019-08-20 Wekan release
 
 This release fixes the following bugs:
