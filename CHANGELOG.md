@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Add missing modules](https://github.com/wekan/wekan/pull/2653).
+  Thanks to GhassenRjab.
+- [Add package-lock.json](https://github.com/wekan/wekan/commit/ad01526124216abcc8b3c8230599c4eda331a86d).
+  Thanks to GhassenRjab and xet7.
+- [Fix last label undefined](https://github.com/wekan/wekan/pull/2657).
+  Thanks to justinr1234.
+- [Default to BIGEVENTS_PATTERN=NONE so that Wekan sends less email notifications](https://github.com/wekan/wekan/commit/0083215ea3955a950d345d44a8663e5b05e8f00f).
+  Thanks to rinnaz and xet7.
+- [Fix app hang when Meteor.user() is null and list spinner is loaded bug](https://github.com/wekan/wekan/pull/2654).
+  Thanks to urakagi.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.25 2019-08-23 Wekan release
 
 This release adds the following new features:
