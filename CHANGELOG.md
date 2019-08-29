@@ -1,6 +1,38 @@
-# Upcoming Wekan release
+# v3.29 2019-08-29 Wekan release
 
 This release fixes the following bugs:
+
+- [Fix Snap](https://github.com/wekan/wekan/commit/7761a22bb4e88ad9a5a39ed84e1ff244015c3a58).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.28 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- Fix broken Sandstorm release by reverting upgrading MongoDB.
+  Thanks to xet7
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.27 2019-08-29 Wekan release
+
+This release adds the following upgrades:
+
+- [Upgrade Node, Mongo, fibers and qs](https://github.com/wekan/wekan/commit/e21c47d3cfe0f228ce5ab394142c6ec6ee090d65).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.26 2019-08-28 Wekan release
+
+This release adds the following new features:
+
+- [Add devcontainer](https://github.com/wekan/wekan/pull/2659) and some [related fixes](https://github.com/wekan/wekan/pull/2660).
+  Thanks to road42.
+
+and fixes the following bugs:
 
 - [Add missing modules](https://github.com/wekan/wekan/pull/2653).
   Thanks to GhassenRjab.
