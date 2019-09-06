@@ -1,16 +1,25 @@
 # Upcoming Wekan release
 
+This release fixes the following bugs:
+
+- LDAP: [Fix USERDN example, when parameters contain spaces](https://github.com/wekan/wekan/commit/6cbd4cabc716c755e547abb798f657fe5476ed04).
+  LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan" .
+  Thanks to compumatter.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.36 2019-09-05 Wekan release
+
 This release adds the following new features:
 
-- [Complete the original author's webhook functions and add two-way webhook type:
+- [Complete the original author's webhook functions and add two-way webhook type](https://github.com/wekan/wekan/pull/2665):
   1. Make webhook function more complete by allowing user to specify name and token of
   a webhook to increase security.
   1. Allow wekan admin to sepcify a global webhook.
   3. Add new type of two-way webhook that can act on the JSON webhook return payload:
   3.1. If the payload data contains cardId, boardId, and comment key words,
   3.2. If it has commentId, an existing comment will be modified
-  3.3. If it doesn't have commentId, then a new comment will be added
-  otherwise, does nothing](https://github.com/wekan/wekan/pull/2665).
+  3.3. If it doesn't have commentId, then a new comment will be added, otherwise, does nothing.
   Thanks to whowillcare.
 - [Patch admin search feature to Search in all users, not just "loaded" users
   in the client](https://github.com/wekan/wekan/pull/2667).
@@ -18,6 +27,11 @@ This release adds the following new features:
 - [Devcontainer: Moved MAIL-Vars to not-committed file, and added PATH with meteor to
   Environment](https://github.com/wekan/wekan/pull/2672).
   Thanks to road42.
+
+and fixes the following bugs:
+
+- [Fix incorrect date types for created and updated, so now newest card comments are at top](https://github.com/wekan/wekan/pull/2679).
+  Thanks to justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
