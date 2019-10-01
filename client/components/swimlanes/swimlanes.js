@@ -53,22 +53,9 @@ function initSortable(boardComponent, $listsDom) {
     },
   };
 
-  if (Utils.isMiniScreen) {
-    $listsDom.sortable({
-      handle: '.js-list-handle',
-    });
-  }
-
-  if (!Utils.isMiniScreen && showDesktopDragHandles) {
-    $listsDom.sortable({
-      handle: '.js-list-header',
-    });
-  }
-
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
-    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -113,6 +100,17 @@ function initSortable(boardComponent, $listsDom) {
   // is not a board member
   boardComponent.autorun(() => {
     const $listDom = $listsDom;
+
+    if (Utils.isMiniScreen) {
+      $listsDom.sortable({
+        handle: '.js-list-handle',
+      });
+    }
+    if (!Utils.isMiniScreen && showDesktopDragHandles) {
+      $listsDom.sortable({
+        handle: '.js-list-header',
+      });
+    }
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
@@ -165,7 +163,7 @@ BlazeComponent.extendComponent({
           // his mouse.
 
           if (Utils.isMiniScreen) {
-            const noDragInside = [
+            noDragInside = [
               'a',
               'input',
               'textarea',
@@ -176,17 +174,11 @@ BlazeComponent.extendComponent({
           }
 
           if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-            const noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-header',
-            ];
+            noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
           }
 
           if (!Utils.isMiniScreen && showDesktopDragHandles) {
-            const noDragInside = [
+            noDragInside = [
               'a',
               'input',
               'textarea',
