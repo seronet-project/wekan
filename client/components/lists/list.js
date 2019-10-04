@@ -31,28 +31,15 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
-    if (Utils.isMiniScreen) {
+    if (Utils.isMiniScreen()) {
       $('.js-minicards').sortable({
         handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: 'list-header',
       });
     }
 
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
-      handle: 'list-header',
       appendTo: '.board-canvas',
       helper(evt, item) {
         const helper = item.clone();
@@ -167,12 +154,6 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('list');
-
-Template.list.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
-});
 
 Template.miniList.events({
   'click .js-select-list'() {

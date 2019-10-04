@@ -56,6 +56,7 @@ function initSortable(boardComponent, $listsDom) {
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
+    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -100,17 +101,6 @@ function initSortable(boardComponent, $listsDom) {
   // is not a board member
   boardComponent.autorun(() => {
     const $listDom = $listsDom;
-
-    if (Utils.isMiniScreen) {
-      $listsDom.sortable({
-        handle: '.js-list-handle',
-      });
-    }
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $listsDom.sortable({
-        handle: '.js-list-header',
-      });
-    }
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
@@ -161,33 +151,13 @@ BlazeComponent.extendComponent({
           // define a list of elements in which we disable the dragging because
           // the user will legitimately expect to be able to select some text with
           // his mouse.
-
-          if (Utils.isMiniScreen) {
-            noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
-
-          if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-            noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
-          }
-
-          if (!Utils.isMiniScreen && showDesktopDragHandles) {
-            noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
-
+          const noDragInside = [
+            'a',
+            'input',
+            'textarea',
+            'p',
+            '.js-list-header',
+          ];
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
             this.$('.swimlane').prop('clientHeight') > evt.offsetY
@@ -263,9 +233,6 @@ BlazeComponent.extendComponent({
 }).register('addListForm');
 
 Template.swimlane.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
   canSeeAddList() {
     return (
       Meteor.user() &&
