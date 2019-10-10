@@ -1,3 +1,29 @@
+# v3.49 2019-10-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix prettier errors](https://github.com/wekan/wekan/commits/36e006fa4e78fe94e627625d1cc589654668f22a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.48 2019-10-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Make possible to upload attachments using drag-and-drop or Ctrl+V without setting the environmental-variable MAX_IMAGE_PIXEL](https://github.com/wekan/wekan/pull/2754).
+  Thanks to moserben16.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.47 2019-10-09 Wekan release
+
+This release fixes the following bugs:
+
+- [REST API: fix handling of members property on card creation](https://github.com/wekan/wekan/pull/2751).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.46 2019-10-07 Wekan release
 
 This release fixes the following bugs:
