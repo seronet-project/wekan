@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=8.16.2 \
+    NODE_VERSION=8.17.0 \
     METEOR_RELEASE=1.8.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -108,7 +108,8 @@ ENV \
     CORS="" \
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
-    DEFAULT_AUTHENTICATION_METHOD=""
+    DEFAULT_AUTHENTICATION_METHOD="" \
+    LINKED_CARDS_ENABLED=true
 
 # Install OS
 RUN set -o xtrace \
