@@ -112,12 +112,10 @@ BlazeComponent.extendComponent({
           currentUser = Meteor.user();
           if (currentUser) {
             Meteor.call('toggleMinicardLabelText');
+          } else if (cookies.has('hiddenMinicardLabelText')) {
+            cookies.remove('hiddenMinicardLabelText');
           } else {
-            if (cookies.has('hiddenMinicardLabelText')) {
-              cookies.remove('hiddenMinicardLabelText');
-            } else {
-              cookies.set('hiddenMinicardLabelText', 'true');
-            }
+            cookies.set('hiddenMinicardLabelText', 'true');
           }
         },
         'click .js-shortcuts'() {
@@ -135,12 +133,10 @@ Template.homeSidebar.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
+    } else if (cookies.has('hiddenMinicardLabelText')) {
+      return true;
     } else {
-      if (cookies.has('hiddenMinicardLabelText')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
 });

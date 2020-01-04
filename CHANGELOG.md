@@ -1,12 +1,57 @@
-# Upcoming Wekan release
+# v3.61 2020-01-03 Wekan release
+
+This release adds the following features:
+
+- [Add more Font Awesome icons. This was originally added
+  at Wekan v3.58, removed at Wekan v3.60, and now
+  added back at Wekan v3.61](https://github.com/wekan/wekan/commit/cd253522a305523e3e36bb73313e8c4db500a717).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix browser javascript console errors when editing profile. This was originally added
+  at Wekan v3.58, removed at Wekan v3.60, and now added back at
+  Wekan v3.61](https://github.com/wekan/wekan/commit/cd253522a305523e3e36bb73313e8c4db500a717).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.60 2020-01-03 Wekan release
 
 This release fixes the following bugs:
+
+- [Revert to Wekan v3.57 version of client and models directories,
+  removing Worker role temporarily, because Worker role changes
+  broke saving card](https://github.com/wekan/wekan/commit/27943796ade78ca3c503637a1340918bf06a1267).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.59 2020-01-03 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix not being able to edit received date](https://github.com/wekan/wekan/commit/5376bc7b7905c0dd99fae1aeae3f63b4583a3e3f).
+  Thanks to xet7.    
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.58 2020-01-03 Wekan release
+
+This release adds the following features:
+
+- [Add Worker role](https://github.com/wekan/wekan/issues/2788). Thanks to xet7.
+- [Add more Font Awesome icons](https://github.com/wekan/wekan/commit/2bf004120d5a43cd3c3c060fc7c0c30d1b01f220).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix: k8s templates update for helm](https://github.com/wekan/wekan/pull/2867).
   1. Upgrade mongo replica version.
   2. Access mongo via service url.
   3. Change the expose servicePort to numeric.
   Thanks to jiangytcn.
+- [Fix browser console errors when editing user profile name](https://github.com/wekan/wekan/commit/2bf004120d5a43cd3c3c060fc7c0c30d1b01f220).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
