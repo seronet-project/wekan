@@ -1,3 +1,37 @@
+# v3.67 2020-01-10 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/2b382b940be9af575fab4c2e955702d8cde55ae9).
+  Try to fix Snap.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.66 2020-01-10 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/39bf1e375e2962f824e6f8cfa425ea51aa4efa24).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.65 2020-01-10 Wekan release
+
+This release adds the following features:
+
+- [More keyboard shortcuts: c for archive card](https://github.com/wekan/wekan/commit/d16a601c04aeb1d3550c5c541be02a67276a34cf).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.9, Node 12.14.1 and MongoDB 4.2.2](https://github.com/wekan/wekan/commit/785f3cf88b61f687ef5ad4a529768221d1a54c86).
+  Thanks to xet7.
+- [Add more issue repo links to GitHub issue template](https://github.com/wekan/wekan/commit/5724674e73246f4e52843a6d6906c0ecdd85cccc).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.64 2020-01-06 Wekan release
 
 This release adds the following warning for CentOS 7 users:
