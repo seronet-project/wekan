@@ -101,7 +101,7 @@ jobs:
           type: docker-image
           source:
             repository: node
-            tag: 12
+            tag: 12.13
         run:
           user: root
           path: sh
