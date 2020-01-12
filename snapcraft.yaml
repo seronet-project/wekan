@@ -65,9 +65,13 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.2.2.tgz
+        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-server_4.2.2_amd64.deb
+        #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.14.tgz
+        #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages:
+            - libssl1.0.0
+            - libcurl3
         filesets:
             mongo:
                 - usr
@@ -90,8 +94,8 @@ parts:
             - ca-certificates
             - apt-utils
             - build-essential
-            - python
-#            - python3
+#            - python
+            - python3
             - g++
             - capnproto
             - curl
@@ -101,6 +105,8 @@ parts:
             - npm
         stage-packages:
             - libfontconfig1
+            - libssl1.0.0
+            - libcurl3
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
