@@ -1,9 +1,11 @@
-# Upcoming Wekan release
+# v3.73 2020-01-29 Wekan release
 
 This release adds the following new features:
 
 - [Login to Wekan with Nextcloud](https://github.com/wekan/wekan/pull/2897).
   Thanks to bogie.
+- [Add rule action to move cards to other boards](https://github.com/wekan/wekan/pull/2899).
+  Thanks to peterverraedt.
 
 and fixes the following bugs:
 
