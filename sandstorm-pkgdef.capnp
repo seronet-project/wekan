@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 375,
+    appVersion = 376,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "3.73.0~2020-01-29"),
+    appMarketingVersion = (defaultText = "3.74.0~2020-02-05"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -238,7 +238,7 @@ const myCommand :Spk.Manifest.Command = (
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "WITH_API", value = "true"),
-    (key = "RICHER_CARD_COMMENT_EDITOR", value="true"),
+    (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
     (key = "BIGEVENTS_PATTERN", value="NONE"),
     (key = "MATOMO_ADDRESS", value=""),
