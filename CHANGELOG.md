@@ -1,15 +1,16 @@
-# Upcoming Wekan release
+# v3.77 2020-02-10 Wekan release
 
-This release adds the following new features:
+This release removes the following features:
 
-- [Card Settings/Show on card/Activities](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
+- [Remove hiding comments and activities](https://github.com/wekan/wekan/commit/2a54218f3f68547032bd53a04a968b233be21e15).
   Thanks to xet7.
 
 and fixes the following bugs:
 
-- [When in Card Settings hiding Comments, only adding new comment is hidden, not old
-  comments](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
-  Thanks to xet7.
+- Fix Copy Card Link to Clipboard button at card title did not
+  work [Part 1](https://github.com/wekan/wekan/commit/9a21b0a1c933e7f778e4e57a8258e150ccea1620)
+  and [Part2](https://github.com/wekan/wekan/commit/4467a68b97a3fbf0fbae7f05177d978f2aa80287).
+  Thanks to 2020product and xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 

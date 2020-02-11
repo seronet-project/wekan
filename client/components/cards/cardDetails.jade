@@ -8,10 +8,11 @@ template(name="cardDetails")
           a.fa.fa-times-thin.close-card-details.js-close-card-details
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
-            input.inline-input(type="hidden" id="cardURL_copy" value="{{ absoluteUrl }}")
-            a.fa.card-copy-button.js-copy-link(
+            input.inline-input(type="text" id="cardURL_copy" value="{{ absoluteUrl }}")
+            a.fa.fa-link.card-copy-button.js-copy-link(
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
+              value="{{ absoluteUrl }}"
             )
         if isMiniScreen
           a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
@@ -261,15 +262,14 @@ template(name="cardDetails")
       if currentUser.isBoardMember
         unless currentUser.isNoComments
           +commentForm
-    if currentBoard.allowsActivities
-      unless currentUser.isNoComments
-        if isLoaded.get
-          if isLinkedCard
-            +activities(card=this mode="linkedcard")
-          else if isLinkedBoard
-            +activities(card=this mode="linkedboard")
-          else
-            +activities(card=this mode="card")
+    unless currentUser.isNoComments
+      if isLoaded.get
+        if isLinkedCard
+          +activities(card=this mode="linkedcard")
+        else if isLinkedBoard
+          +activities(card=this mode="linkedboard")
+        else
+          +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus dir="auto")
