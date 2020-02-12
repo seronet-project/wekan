@@ -1,8 +1,39 @@
+# v3.78 2020-02-12 Wekan release
+
+This release adds the following features:
+
+- [Card Settings / Show on Card: Description Title and Description Text](https://github.com/wekan/wekan/commit/e89965f6422fd95b4ad2112ae407b1dde4853510).
+  Thanks to e-stoniauk, 2020product and xet7.
+
+and fixes the following bugs:
+
+- [Remove card element grouping to create compact card layout](https://github.com/wekan/wekan/commit/e89965f6422fd95b4ad2112ae407b1dde4853510).
+  Thanks to e-stoniauk, 2020product and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.77 2020-02-10 Wekan release
+
+This release removes the following features:
+
+- [Remove hiding comments and activities](https://github.com/wekan/wekan/commit/2a54218f3f68547032bd53a04a968b233be21e15).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- Fix Copy Card Link to Clipboard button at card title did not
+  work [Part 1](https://github.com/wekan/wekan/commit/9a21b0a1c933e7f778e4e57a8258e150ccea1620)
+  and [Part2](https://github.com/wekan/wekan/commit/4467a68b97a3fbf0fbae7f05177d978f2aa80287).
+  Thanks to 2020product and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.76 2020-02-07 Wekan release
 
 This release adds the following updates:
 
 - [Use Meteor 1.9 and Node.js 12.15.0 on Snap and Docker](https://github.com/wekan/wekan/commit/8384d68a060ef8f2c202ce2fa6064c5c823d28dc).
+  This also fixes bug that exporting some boards was not possible, downloading export file failed.
   Thanks to xet7.
 
 and fixes the following bugs:

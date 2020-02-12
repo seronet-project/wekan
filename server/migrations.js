@@ -985,3 +985,51 @@ Migrations.add('add-requested-by-allowed', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('add-activities-allowed', () => {
+  Boards.update(
+    {
+      allowsActivities: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsActivities: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-description-title-allowed', () => {
+  Boards.update(
+    {
+      allowsDescriptionTitle: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsDescriptionTitle: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-description-text-allowed', () => {
+  Boards.update(
+    {
+      allowsDescriptionText: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsDescriptionText: true,
+      },
+    },
+    noValidateMulti,
+  );
+});

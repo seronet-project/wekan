@@ -647,6 +647,14 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsComments;
   },
 
+  allowsDescriptionTitle() {
+    return this.currentBoard.allowsDescriptionTitle;
+  },
+
+  allowsDescriptionText() {
+    return this.currentBoard.allowsDescriptionText;
+  },
+
   isBoardSelected() {
     return this.currentBoard.dateSettingsDefaultBoardID;
   },
@@ -837,6 +845,38 @@ BlazeComponent.extendComponent({
             this.currentBoard.allowsLabels,
           );
         },
+        'click .js-field-has-description-title'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionTitle = !this.currentBoard
+            .allowsDescriptionTitle;
+          this.currentBoard.setAllowsDescriptionTitle(
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $(`.js-field-has-description-title ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $('.js-field-has-description-title').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+        },
+        'click .js-field-has-description-text'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionText = !this.currentBoard
+            .allowsDescriptionText;
+          this.currentBoard.setAllowsDescriptionText(
+            this.currentBoard.allowsDescriptionText,
+          );
+          $(`.js-field-has-description-text ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
+          );
+          $('.js-field-has-description-text').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
+          );
+        },
         'click .js-field-has-checklists'(evt) {
           evt.preventDefault();
           this.currentBoard.allowsChecklists = !this.currentBoard
@@ -880,6 +920,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-comments').toggleClass(
             CKCLS,
             this.currentBoard.allowsComments,
+          );
+        },
+        'click .js-field-has-activities'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsActivities = !this.currentBoard
+            .allowsActivities;
+          this.currentBoard.setAllowsActivities(
+            this.currentBoard.allowsActivities,
+          );
+          $(`.js-field-has-activities ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
+          );
+          $('.js-field-has-activities').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
           );
         },
       },
