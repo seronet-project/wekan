@@ -1,3 +1,21 @@
+# Upcoming Wekan release
+
+This release adds the following features:
+
+- Add settings for mouse wheel scroll inertia and scroll
+  amount [Part1](https://github.com/wekan/wekan/commit/9d13001b903f9ec50f5fa3a4bdbacae32b27ac65)
+  and [Part2](https://github.com/wekan/wekan/commit/aaecac091209e90c0c2123830728f5e7a835ccb4).
+  For example: sudo snap set scrollinertia='200' , sudo snap set scrollamount='200' .
+  Thanks to danger89 and xet7.
+
+and fixes the following bugs:
+
+- [Fix: Error when retrieve token from some OIDC due to not necessary scope
+  parameter](https://github.com/wekan/wekan/pull/2955).
+  Thanks to benoitm76.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.83 2020-03-01 Wekan release
 
 This release tries to revert remaining the following changes:
