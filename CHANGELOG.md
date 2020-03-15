@@ -8,8 +8,23 @@ This release adds the following features:
   For example: sudo snap set scrollinertia='200' , sudo snap set scrollamount='200' .
   Thanks to danger89 and xet7.
 
+and adds the following updates:
+
+- [Upgrade to Meteor 1.10.1](https://github.com/wekan/wekan/commit/e16c65babc1f021c35a3d46bc61e649ec94d1e82).
+  Thanks to xet7.
+- [Update markdown](https://github.com/wekan/wekan/commit/6e0fa78022ea487176eb0a32ec5a4a441f8e0c3c).
+  Thanks to xet7.
+- Update minimist [Part1](https://github.com/wekan/wekan/commit/f4e2bc0d3283cefc5a9f2c83d1965760885609a1)
+  and [Part2](https://github.com/wekan/wekan/commit/2f131419077076b50bd6c924d3efd6ca82503bc1).
+  Thanks to xet7.
+- [Update acorn](https://github.com/wekan/wekan/commit/2174936613bc7995ac9bf1b66a5fb90903b9e7e8).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
+- [Downgrade stylus to v1.1.0 to speed up building Wekan](https://github.com/wekan/wekan/commit/fca4cdcebf1cc6642aefeb78b911cb5b95ebe473).
+  This is because building newer stylus v2 takes 52 minutes. After this change, building Wekan takes 3 minutes.
+  Thanks to zodern.
 - [Fix: Error when retrieve token from some OIDC due to not necessary scope
   parameter](https://github.com/wekan/wekan/pull/2955).
   Thanks to benoitm76.
