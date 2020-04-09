@@ -38,6 +38,32 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('unsaved-edits');
   },
 
+  voteState() {
+    const card = this.currentData();
+    const userId = Meteor.userId();
+    let state;
+    if (card.vote) {
+      if (card.vote.positive) {
+        state = _.contains(card.vote.positive, userId);
+        if (state === true) return true;
+      }
+      if (card.vote.negative) {
+        state = _.contains(card.vote.negative, userId);
+        if (state === true) return false;
+      }
+    }
+    return null;
+  },
+  voteCountPositive() {
+    const card = this.currentData();
+    if (card.vote && card.vote.positive) return card.vote.positive.length;
+    return null;
+  },
+  voteCountNegative() {
+    const card = this.currentData();
+    if (card.vote && card.vote.negative) return card.vote.negative.length;
+    return null;
+  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -379,6 +405,18 @@ BlazeComponent.extendComponent({
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
         },
+        'click .js-vote'(e) {
+          const forIt = $(e.target).hasClass('js-vote-positive');
+          let newState = null;
+          if (
+            this.voteState() == null ||
+            (this.voteState() == false && forIt) ||
+            (this.voteState() == true && !forIt)
+          ) {
+            newState = forIt;
+          }
+          this.data().setVote(Meteor.userId(), newState);
+        },
       },
     ];
   },
@@ -560,6 +598,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-start-voting': Popup.open('cardStartVoting'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
@@ -570,6 +609,11 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
+  'click .js-cancel-voting'(event) {
+    event.preventDefault();
+    this.unsetVote();
+    Popup.close();
+  },
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const minOrder = _.min(
@@ -944,6 +988,26 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardMorePopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.voteQuestion = new ReactiveVar(this.currentCard.voteQuestion);
+  },
+
+  events() {
+    return [
+      {
+        'submit .edit-vote-question'(evt) {
+          evt.preventDefault();
+          const voteQuestion = evt.target.vote.value;
+          this.currentCard.setVoteQuestion(voteQuestion);
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('cardStartVotingPopup');
 
 // Close the card details pane by pressing escape
 EscapeActions.register(
