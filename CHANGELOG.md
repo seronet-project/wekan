@@ -1,4 +1,16 @@
-# Upcoming Wekan release
+# v3.98 2020-04-25 Wekan release
+
+News:
+
+- There is now many mobile and desktop webbrowser fixes. Please test does your
+  favourite Javascript enabled webbrowser work, and add issues if something
+  does not work, and there is no existing issue about that yet.
+- Desktop browser mode has setting for Show/Hide drag handles:
+  top right click username / Change Settings / Show desktop drag handles.
+  You can request desktop website also at mobile webbrowsers on Android.
+  At iOS requesting desktop website did not seem to work yet.
+- At iOS Safari and Chrome, to see swimlane buttons you need to scroll to right.
+  Fixes to this and other issues are welcome as pull request.
 
 This release adds the following new features:
 
@@ -10,6 +22,9 @@ This release adds the following new features:
   features like optional chaining, for developer happiness](https://github.com/wekan/wekan/pull/3034).
   Thanks to boeserwolf.
 - [Use only one 'Apply' button for applying the user settings](https://github.com/wekan/wekan/pull/3039).
+  Thanks to marc1006.
+- [Allow variable height for board list items. Allow words in title/description to be able to break
+  and wrap onto the next line](https://github.com/wekan/wekan/pull/3046).
   Thanks to marc1006.
 
 and adds the following updates:
@@ -27,6 +42,12 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix getStartDayOfWeek function](https://github.com/wekan/wekan/pull/3038).
   Thanks to marc1006 and boeserwolf.
+- Improve mobile devices support [Part1](https://github.com/wekan/wekan/pull/3040) and [Part2](https://github.com/wekan/wekan/pull/3045).
+  Thanks to marc1006.
+- [Fix Wekan not load at all in Firefox v.68 for Android](https://github.com/wekan/wekan/commit/1235363465b824d26129d4aa74a4445f362c1a73).
+  Thanks to xet7.
+- [Fix comment typo in docker-compose.yml](https://github.com/wekan/wekan/pull/3044).
+  Thanks to VictorioBerra.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
