@@ -20,8 +20,15 @@ and adds the following updates:
 - [Update dependencies](https://github.com/wekan/wekan/commit/75bdd33fda58ea0233f5b38c466bcb1a9b0406ab).
   Thanks to xet7.
 
+and adds the following translations:
+
+- [Add Spanish (Chile)](https://github.com/wekan/wekan/commit/96507e6777ed77a324eaec9799c5b46b0d25ad26).
+  Thanks to isos, Transifex user.
+
 and fixes the following bugs:
 
+- [Fix Deleting linked card makes board not load](https://github.com/wekan/wekan/issues/2785).
+  Thanks to marc1006 and xet7.
 - [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
   Thanks to marc1006.
 - [Fix shortcuts list and support card shortcuts when hovering
@@ -31,6 +38,8 @@ and fixes the following bugs:
   details](https://github.com/wekan/wekan/pull/3075).
   Thanks to helioguardabaxo.
 - [Fix avatar-image class](https://github.com/wekan/wekan/pull/3083).
+  Thanks to krupupakku.
+- [Fix Swimlanes ID missing in new boards](https://github.com/wekan/wekan/pull/3088).
   Thanks to krupupakku.
 - [Fix REST API so Create card does now allow an empty member
   list](https://github.com/wekan/wekan/pull/3084).
