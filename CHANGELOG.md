@@ -1,8 +1,26 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following features:
+
+- [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
+  You can select it from Board Settings / Change color / natural.
+  Thanks to compumatter and helioguardabaxo,
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.03 2020-05-16 Wekan release
+
+This release adds the following features:
+
+- [Theme: Clearblue](https://github.com/wekan/wekan/pull/3093).
+  You can select it from Board Settings / Change color / clearblue.
+  Thanks to CidKramer.
+
+and fixes the following bugs:
 
 - [Fix Can't Scroll on All Boards on mobile phone. Added drag handles](https://github.com/wekan/wekan/issues/3096).
+  Thanks to xet7.
+- [Try to fix Sandstorm Wekan Export menu](https://github.com/wekan/wekan/commit/1ac11d92ba8f38981c87db25e5b5e1fa2adb6968).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
