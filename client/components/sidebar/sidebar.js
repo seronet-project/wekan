@@ -467,7 +467,7 @@ Template.exportBoard.events({
   'click .html-export-board': async event => {
     event.preventDefault();
     await ExportHtml(Popup)();
-  }
+  },
 });
 
 Template.labelsWidget.events({
@@ -653,7 +653,7 @@ BlazeComponent.extendComponent({
             'subtext-with-parent',
             'no-parent',
           ];
-          options.forEach(element => {
+          options.forEach(function(element) {
             if (element !== value) {
               $(`#${element} ${MCB}`).toggleClass(CKCLS, false);
               $(`#${element}`).toggleClass(CKCLS, false);
