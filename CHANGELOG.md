@@ -1,15 +1,28 @@
-# Upcoming Wekan release
+# v4.11 2020-06-04 Wekan release
 
 This release adds the following new platforms:
 
 - [Using arm64 bundle on Raspberry Pi OS arm64 with MongoDB 4.2.x for RasPi3 and
   RasPi4](https://github.com/wekan/wekan/wiki/Raspberry-Pi#raspberry-pi-os-arm64-with-mongodb-42x).
   Thanks to Raspberry Pi OS devs, MongoDB devs and xet7.
+- [s390x RHEL 8](https://github.com/wekan/wekan/wiki/s390x#rhel-8).
+  Thanks to IBM, Red Hat Linux, Linux Foundation and xet7.
+
+and adds the following updates:
+
+- [Upgrade to Node v12.18.0](https://github.com/wekan/wekan/commit/d9d451a206cabe7f6ca8ad5d35eb76443198e4c1).
+  Thanks to Node developers and xet7.
+- [Update `markedjs` package](https://github.com/wekan/wekan/pull/3149).
+  Thanks to marc1006.
+- [Add fibers](https://github.com/wekan/wekan/commit/cd49018306f826fff37b7024dfde9de05d88b620).
+  Thanks to xet7.
 
 and adds the following new features:
 
 - [Add Calendar Month Event List view](https://github.com/wekan/wekan/commit/f73ea218eefba3f0d6c642849dfede9e03052d25).
   Thanks to xet7.
+- [Added dates & assignees to REST API calls](https://github.com/wekan/wekan/pull/3146).
+  Thanks to GitGramm.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
