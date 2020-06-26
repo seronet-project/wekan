@@ -101,7 +101,7 @@ jobs:
           type: docker-image
           source:
             repository: node
-            tag: 12.15
+            tag: 12.18.0
         run:
           user: root
           path: sh
@@ -121,7 +121,6 @@ jobs:
             cp .concourse/manifest.yml ../wekan-out
             cd ../wekan-out
             node -v > bundle/.nvmrc
-            # echo '{"name":"Rocket.Chat","engines": {"node": "8.15.1"}}' > bundle/package.json
             ls bundle
             cd bundle/programs/server
             rm -rf node_modules
