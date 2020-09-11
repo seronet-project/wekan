@@ -1,3 +1,29 @@
+# v4.29 2020-09-11
+
+This release adds the following new features:
+
+- [Changed markdown from marked to markdown-it](https://github.com/wekan/wekan/commit/20b01771055ca4d8871d13abb559ab92ecee10f4) and
+  added emoji support https://github.com/wekan/wekan/wiki/Emoji .
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.28 2020-09-11 Wekan release
+
+This release updates some dependencies:
+
+- [Update some dependencies](https://github.com/wekan/wekan/commit/125c4684bd6815a8f49241bc2663e82112afe67b).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Fix card scrollbar on Windows](https://github.com/wekan/wekan/pull/3264).
+  Thanks to tborychowski.
+- [Try to fix language names](https://github.com/wekan/wekan/commit/f81fd8084fd6cd1ad57daefcc22ed1fb0acaaeca).
+  Thanks to buplet, xoas and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.27 2020-09-09 Wekan release
 
 This release fixes the following bugs:
