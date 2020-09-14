@@ -1,14 +1,39 @@
-# Upcoming Wekan release
+# v4.32 2020-09-13 Wekan release
 
-This release adds the following new features:
+This release tried to fix the following bugs:
 
-- [Add setting for OAUTH2_ADFS=true](https://github.com/wekan/wekan/pull/3269)
-  and [related settings for Wekan platforms]()
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.31 2020-09-13 Wekan release
+
+This release tried to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/fe62e12ab46c41ea30ba79795b0dc39b3451d4a2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.30 2020-09-13 Wekan release
+
+This release adds the following new features and improvements:
+
+- [Add setting for OAUTH2_ADFS_ENABLED=true](https://github.com/wekan/wekan/pull/3269)
   for [SSO Integration with ADFS 4.0 using OAuth 2 and OpenID](https://github.com/wekan/wekan/issues/3184).
-  Thanks to phaseshift3r and xet7.
+  Thanks to phaseshift3r.
+- [Add setting OAUTH2_ADFS_ENABLED=false for most platforms. Remove mouse scroll settings of already removed custom scrollbar.
+  Add testing for both string and boolean version of true](https://github.com/wekan/wekan/commit/f6bdb4d694453d73f4bfa6a75814833594cf5000).
+  Thanks to xet7.
+- [Design improvements in templates, card details and custom fields](https://github.com/wekan/wekan/pull/3271)
+  and [related change to translation](https://github.com/wekan/wekan/commit/fe40c5fd37a7c54240c080caf98b6130229f5d31).
+  Thanks to helioguardabaxo and xet7.
 
-and updates some dependencies:
+and adds the following updates:
 
+- [Use forked & updated version of gridfs-stream](https://github.com/wekan/wekan/pull/3270).
+  Thanks to blaggacao.
 - [Update dependencies](https://github.com/wekan/wekan/pull/3268).
   Thanks to blaggacao.
 - [Update npm-mongo dependency](https://github.com/wekan/wekan/commit/9fdafd20081b20302af3d1a6397fb840348f1209).
@@ -16,7 +41,7 @@ and updates some dependencies:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v4.29 2020-09-11
+# v4.29 2020-09-11 Wekan release
 
 This release adds the following new features:
 
