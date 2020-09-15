@@ -1,3 +1,37 @@
+# v4.35 2020-09-14 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/7173e293ef6b0d3c1fe82b5320340589c72c9326).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.34 2020-09-14 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/d2b84c7773f20b34bca8be23078469a8809005a6).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.33 2020-09-14 Wekan release
+
+This release adds the following login settings:
+
+- [Added some CAS and SAML settings](https://github.com/wekan/wekan/commit/214c86cc22f4c721a79ec0a4a4f3bbd90d673f93).
+  Not tested. Please test and send pull requests if it does not work.
+  See https://github.com/wekan/wekan/wiki/SAML and https://github.com/wekan/wekan/wiki/CAS .
+  Thanks to xet7.
+
+and updates some dependencies:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/cca041e21a66087ca4008a22cb0f5b4176801101).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.32 2020-09-13 Wekan release
 
 This release tried to fix the following bugs:
