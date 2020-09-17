@@ -1,3 +1,22 @@
+# v4.39 2020-09-17 Wekan release
+
+This release adds the following new features:
+
+- [Impersonate one user](https://github.com/wekan/wekan/pull/3280) and
+  [related translatable strings](https://github.com/wekan/wekan/commit/81ac0fdba9b52477dbbe7b6ed01b6d299288bcca).
+  Thanks to Akuket and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.38 2020-09-16 Wekan release
+
+This release fixes the following CRITICAL VULNERABILITIES:
+
+- [Upgrade to Node.js v12.18.4](https://github.com/wekan/wekan/commit/5cd9f89b21e6f800c2b78da49a1c0cf7f6fba955).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.37 2020-09-15 Wekan release
 
 This release adds the following UI improvements:
