@@ -101,11 +101,7 @@ jobs:
           type: docker-image
           source:
             repository: node
-<<<<<<< HEAD
             tag: 12.18.4
-=======
-            tag: 12.18.3
->>>>>>> e737f3d83151624a8515dad638c065ab92b33c92
         run:
           user: root
           path: sh
