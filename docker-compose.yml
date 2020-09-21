@@ -38,7 +38,7 @@ version: '2'
 #      sudo service docker start
 # ----------------------------------------------------------------------------------
 # ==== USAGE OF THIS docker-compose.yml ====
-# 1) For seeing does Wekan work, try this and check with your webbroser:
+# 1) For seeing does Wekan work, try this and check with your web browser:
 #      docker-compose up
 # 2) Stop Wekan and start Wekan in background:
 #     docker-compose stop
@@ -93,7 +93,9 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) For Wekan Meteor 1.8.x version at master branch, use mongo 4.x
-    image: mongo:4.2.2
+    # DOES NOT WORK: mongo 4.4, see https://github.com/wekan/wekan/issues/3247
+    # WORKS: mongo 3.x and 4.2
+    image: mongo:4.2
     # b) For Wekan Meteor 1.6.x version at devel branch.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
     #image: mongo:3.2.21
@@ -115,11 +117,11 @@ services:
     # NOTE: Quay is currently not updated, use Docker Hub image below c)
     # a) For Wekan Meteor 1.8.x version at master branch,
     #    using https://quay.io/wekan/wekan automatic builds
-    image: quay.io/wekan/wekan
+    #image: quay.io/wekan/wekan
     # b) Using specific Meteor 1.6.x version tag:
     # image: quay.io/wekan/wekan:v1.95
     # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
-    #image: wekanteam/wekan
+    image: wekanteam/wekan
     # image: wekanteam/wekan:v2.99
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
@@ -180,7 +182,7 @@ services:
       # that if you're using more than 1 instance of Wekan
       # (or any MeteorJS based tool) you're supposed to set
       # MONGO_OPLOG_URL as an environment variable.
-      # Without setting it, Meteor will perform a pull-and-diff
+      # Without setting it, Meteor will perform a poll-and-diff
       # update of it's dataset. With it, Meteor will update from
       # the OPLOG. See here
       #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
@@ -248,6 +250,11 @@ services:
       # https://github.com/wekan/wekan/pull/2544
       #-MAX_IMAGE_PIXEL=1024
       #-IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
@@ -323,6 +330,8 @@ services:
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #- OAUTH2_ENABLED=true
+      # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
+      #- OAUTH2_ADFS_ENABLED=false
       # OAuth2 login style: popup or redirect.
       #- OAUTH2_LOGIN_STYLE=redirect
       # Application GUID captured during app registration:
@@ -343,8 +352,9 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 Nextcloud ====
-      # 1) Register the application with Nextcloud: https://your.nextcloud/settings/admin/security
+      # 1) Register the application with Nextcloud: https://your.nextcloud/index.php/settings/admin/security
       #    Make sure you capture the application ID as well as generate a secret key.
+      #    Use https://your.wekan/_oauth/oidc for the redirect URI.
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #- OAUTH2_ENABLED=true
@@ -504,18 +514,22 @@ services:
       # The limit number of entries (0=unlimited)
       #- LDAP_SEARCH_SIZE_LIMIT=0
       #
-      # Enable group filtering
+      # Enable group filtering. Note the authenticated ldap user must be able to query all relevant group data with own login data from ldap.
       #- LDAP_GROUP_FILTER_ENABLE=false
       #
       # The object class for filtering. Example: group
       #- LDAP_GROUP_FILTER_OBJECTCLASS=
       #
+      # The attribute of a group identifying it. Example: cn
       #- LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
       #
+      # The attribute inside a group object listing its members. Example: member
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
       #
+      # The format of the value of LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE. Example: 'dn' if the users dn ist saved as value into the attribute.
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
       #
+      # The group name (id) that matches all users.
       #- LDAP_GROUP_FILTER_GROUP_NAME=
       #
       # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier). Example: guid
@@ -584,6 +598,26 @@ services:
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
       #-------------------------------------------------------------------
+      # Hide password login form
+      # - PASSWORD_LOGIN_ENABLED=true
+      #-------------------------------------------------------------------
+      #- CAS_ENABLED=true
+      #- CAS_BASE_URL=https://cas.example.com/cas
+      #- CAS_LOGIN_URL=https://cas.example.com/login
+      #- CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+      #---------------------------------------------------------------------
+      #- SAML_ENABLED=true
+      #- SAML_PROVIDER=
+      #- SAML_ENTRYPOINT=
+      #- SAML_ISSUER=
+      #- SAML_CERT=
+      #- SAML_IDPSLO_REDIRECTURL=
+      #- SAML_PRIVATE_KEYFILE=
+      #- SAML_PUBLIC_CERTFILE=
+      #- SAML_IDENTIFIER_FORMAT=
+      #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #- SAML_ATTRIBUTES=
+      #---------------------------------------------------------------------
     depends_on:
       - wekandb
 

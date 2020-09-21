@@ -10,6 +10,9 @@ avatar-radius = 50%
   left: -2000px
   top: 0px
 
+#clipboard
+  white-space: normal
+
 .assignee
   border-radius: 3px
   display: block
@@ -37,6 +40,8 @@ avatar-radius = 50%
       position: absolute
 
     &.avatar-image
+      object-fit: cover;
+      object-position: center;
       height: 100%
       width: @height
 
@@ -84,7 +89,7 @@ avatar-radius = 50%
 .card-details
   padding: 0
   flex-shrink: 0
-  flex-basis: 510px
+  flex-basis: 600px
   will-change: flex-basis
   overflow-y: scroll
   overflow-x: hidden
@@ -94,21 +99,18 @@ avatar-radius = 50%
   animation: flexGrowIn 0.1s
   box-shadow: 0 0 7px 0 darken(white, 30%)
   transition: flex-basis 0.1s
+  box-sizing: border-box
 
   .mCustomScrollBox
     padding-left: 0
 
-  .ps-scrollbar-y-rail
-    pointer-event: all
-    position: absolute;
-
   .card-details-canvas
-    width: 470px
-    padding-left: 20px;
+    width: auto
+    padding: 0 20px
 
   .card-details-header
     margin: 0 -20px 5px
-    padding 7px 16px
+    padding 7px 20px
     background: darken(white, 7%)
     border-bottom: 1px solid darken(white, 14%)
 
@@ -196,23 +198,32 @@ avatar-radius = 50%
       margin-right: 0.5em
       &:last-child
         margin-right: 0
-      &.card-details-item-labels,
+      &.card-details-item-labels
+        display: block
+        word-wrap: break-word
+        max-width: 95%
+        flex-grow: 1
       &.card-details-item-members,
       &.card-details-item-assignees,
-      &.card-details-item-received,
-      &.card-details-item-start,
-      &.card-details-item-due,
-      &.card-details-item-end,
       &.card-details-item-customfield,
       &.card-details-item-name
         display: block
         word-wrap: break-word
-        max-width: 48%
+        max-width: 36%
+        flex-grow: 1
+      &.card-details-item-received,
+      &.card-details-item-start,
+      &.card-details-item-due,
+      &.card-details-item-end
+        display: block
+        word-wrap: break-word
+        max-width: 28%
         flex-grow: 1
 
   .card-details-item-title
     font-size: 16px
-    color: #000
+    font-weight: bold
+    color: #4d4d4d
 
   .card-label
     padding-top: 5px
@@ -241,7 +252,7 @@ input[type="submit"].attachment-add-link-submit
 
     .card-details-canvas
       width: 100%
-      padding-left: 0px;
+      padding-left: 0px
 
     .card-details-header
       .close-card-details
@@ -330,3 +341,18 @@ card-details-color(background, color...)
 
 .card-details-indigo
   card-details-color(#4b0082, #ffffff) //White text for better visibility
+
+.voted
+  opacity: .7
+.vote-title
+  display: flex
+  justify-content: space-between
+
+  .js-edit-date
+    align-self: baseline
+    margin-left: 5px
+
+.vote-result
+  display: flex
+.js-show-positive-votes
+  cursor: pointer

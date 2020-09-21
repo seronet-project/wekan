@@ -1,3 +1,5 @@
+import { SyncedCron } from 'meteor/percolate:synced-cron';
+
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
 const isSandstorm =
@@ -93,7 +95,7 @@ Users.attachSchema(
       autoValue() {
         if (this.isInsert && !this.isSet) {
           return {
-            boardView: 'board-view-lists',
+            boardView: 'board-view-swimlanes',
           };
         }
       },
@@ -122,6 +124,13 @@ Users.attachSchema(
     'profile.showDesktopDragHandles': {
       /**
        * does the user want to hide system messages?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.hideCheckedItems': {
+      /**
+       * does the user want to hide checked checklist items?
        */
       type: Boolean,
       optional: true,
@@ -165,12 +174,32 @@ Users.attachSchema(
       /**
        * enabled notifications for the user
        */
-      type: [String],
+      type: [Object],
+      optional: true,
+    },
+    'profile.notifications.$.activity': {
+      /**
+       * The id of the activity this notification references
+       */
+      type: String,
+    },
+    'profile.notifications.$.read': {
+      /**
+       * the date on which this notification was read
+       */
+      type: Date,
       optional: true,
     },
     'profile.showCardsCountAt': {
       /**
        * showCardCountAt field of the user
+       */
+      type: Number,
+      optional: true,
+    },
+    'profile.startDayOfWeek': {
+      /**
+       * startDayOfWeek field of the user
        */
       type: Number,
       optional: true,
@@ -196,8 +225,8 @@ Users.attachSchema(
       type: String,
       optional: true,
       allowedValues: [
-        'board-view-lists',
         'board-view-swimlanes',
+        'board-view-lists',
         'board-view-cal',
       ],
     },
@@ -362,8 +391,8 @@ if (Meteor.isClient) {
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+    isBoardAdmin(boardId = Session.get('currentBoard')) {
+      const board = Boards.findOne(boardId);
       return board && board.hasAdmin(this._id);
     },
   });
@@ -371,12 +400,20 @@ if (Meteor.isClient) {
 
 Users.helpers({
   boards() {
-    return Boards.find({ 'members.userId': this._id });
+    return Boards.find(
+      { 'members.userId': this._id },
+      { sort: { sort: 1 /* boards default sorting */ } },
+    );
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: starredBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: starredBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   hasStarred(boardId) {
@@ -386,7 +423,12 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: invitedBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: invitedBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   isInvitedTo(boardId) {
@@ -429,9 +471,28 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  notifications() {
+    const { notifications = [] } = this.profile || {};
+    for (const index in notifications) {
+      if (!notifications.hasOwnProperty(index)) continue;
+      const notification = notifications[index];
+      // this preserves their db sort order for editing
+      notification.dbIndex = index;
+      notification.activity = Activities.findOne(notification.activity);
+    }
+    // this sorts them newest to oldest to match Trello's behavior
+    notifications.reverse();
+    return notifications;
+  },
+
   hasShowDesktopDragHandles() {
     const profile = this.profile || {};
     return profile.showDesktopDragHandles || false;
+  },
+
+  hasHideCheckedItems() {
+    const profile = this.profile || {};
+    return profile.hideCheckedItems || false;
   },
 
   hasHiddenSystemMessages() {
@@ -477,6 +538,15 @@ Users.helpers({
   getLanguage() {
     const profile = this.profile || {};
     return profile.language || 'en';
+  },
+
+  getStartDayOfWeek() {
+    const profile = this.profile || {};
+    if (typeof profile.startDayOfWeek === 'undefined') {
+      // default is 'Monday' (1)
+      return 1;
+    }
+    return profile.startDayOfWeek;
   },
 
   getTemplatesBoardId() {
@@ -554,6 +624,15 @@ Users.mutations({
     };
   },
 
+  toggleHideCheckedItems() {
+    const value = this.hasHideCheckedItems();
+    return {
+      $set: {
+        'profile.hideCheckedItems': !value,
+      },
+    };
+  },
+
   toggleSystem(value = false) {
     return {
       $set: {
@@ -573,7 +652,7 @@ Users.mutations({
   addNotification(activityId) {
     return {
       $addToSet: {
-        'profile.notifications': activityId,
+        'profile.notifications': { activity: activityId },
       },
     };
   },
@@ -581,7 +660,7 @@ Users.mutations({
   removeNotification(activityId) {
     return {
       $pull: {
-        'profile.notifications': activityId,
+        'profile.notifications': { activity: activityId },
       },
     };
   },
@@ -610,6 +689,10 @@ Users.mutations({
     return { $set: { 'profile.showCardsCountAt': limit } };
   },
 
+  setStartDayOfWeek(startDay) {
+    return { $set: { 'profile.startDayOfWeek': startDay } };
+  },
+
   setBoardView(view) {
     return {
       $set: {
@@ -620,16 +703,6 @@ Users.mutations({
 });
 
 Meteor.methods({
-  setUsername(username, userId) {
-    check(username, String);
-    check(userId, String);
-    const nUsersWithUsername = Users.find({ username }).count();
-    if (nUsersWithUsername > 0) {
-      throw new Meteor.Error('username-already-taken');
-    } else {
-      Users.update(userId, { $set: { username } });
-    }
-  },
   setListSortBy(value) {
     check(value, String);
     Meteor.user().setListSortBy(value);
@@ -637,6 +710,10 @@ Meteor.methods({
   toggleDesktopDragHandles() {
     const user = Meteor.user();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
+  },
+  toggleHideCheckedItems() {
+    const user = Meteor.user();
+    user.toggleHideCheckedItems();
   },
   toggleSystemMessages() {
     const user = Meteor.user();
@@ -650,51 +727,101 @@ Meteor.methods({
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
   },
-  setEmail(email, userId) {
-    if (Array.isArray(email)) {
-      email = email.shift();
-    }
-    check(email, String);
-    const existingUser = Users.findOne(
-      { 'emails.address': email },
-      { fields: { _id: 1 } },
-    );
-    if (existingUser) {
-      throw new Meteor.Error('email-already-taken');
-    } else {
-      Users.update(userId, {
-        $set: {
-          emails: [
-            {
-              address: email,
-              verified: false,
-            },
-          ],
-        },
-      });
-    }
-  },
-  setUsernameAndEmail(username, email, userId) {
-    check(username, String);
-    if (Array.isArray(email)) {
-      email = email.shift();
-    }
-    check(email, String);
-    check(userId, String);
-    Meteor.call('setUsername', username, userId);
-    Meteor.call('setEmail', email, userId);
-  },
-  setPassword(newPassword, userId) {
-    check(userId, String);
-    check(newPassword, String);
-    if (Meteor.user().isAdmin) {
-      Accounts.setPassword(userId, newPassword);
-    }
+  changeStartDayOfWeek(startDay) {
+    check(startDay, Number);
+    Meteor.user().setStartDayOfWeek(startDay);
   },
 });
 
 if (Meteor.isServer) {
   Meteor.methods({
+    setCreateUser(fullname, username, password, isAdmin, isActive, email) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(fullname, String);
+        check(username, String);
+        check(password, String);
+        check(isAdmin, String);
+        check(isActive, String);
+        check(email, String);
+
+        const nUsersWithUsername = Users.find({ username }).count();
+        const nUsersWithEmail = Users.find({ email }).count();
+        if (nUsersWithUsername > 0) {
+          throw new Meteor.Error('username-already-taken');
+        } else if (nUsersWithEmail > 0) {
+          throw new Meteor.Error('email-already-taken');
+        } else {
+          Accounts.createUser({
+            fullname,
+            username,
+            password,
+            isAdmin,
+            isActive,
+            email: email.toLowerCase(),
+            from: 'admin',
+          });
+        }
+      }
+    },
+    setUsername(username, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(username, String);
+        check(userId, String);
+        const nUsersWithUsername = Users.find({ username }).count();
+        if (nUsersWithUsername > 0) {
+          throw new Meteor.Error('username-already-taken');
+        } else {
+          Users.update(userId, { $set: { username } });
+        }
+      }
+    },
+    setEmail(email, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        if (Array.isArray(email)) {
+          email = email.shift();
+        }
+        check(email, String);
+        const existingUser = Users.findOne(
+          { 'emails.address': email },
+          { fields: { _id: 1 } },
+        );
+        if (existingUser) {
+          throw new Meteor.Error('email-already-taken');
+        } else {
+          Users.update(userId, {
+            $set: {
+              emails: [
+                {
+                  address: email,
+                  verified: false,
+                },
+              ],
+            },
+          });
+        }
+      }
+    },
+    setUsernameAndEmail(username, email, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(username, String);
+        if (Array.isArray(email)) {
+          email = email.shift();
+        }
+        check(email, String);
+        check(userId, String);
+        Meteor.call('setUsername', username, userId);
+        Meteor.call('setEmail', email, userId);
+      }
+    },
+    setPassword(newPassword, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(userId, String);
+        check(newPassword, String);
+        if (Meteor.user().isAdmin) {
+          Accounts.setPassword(userId, newPassword);
+        }
+      }
+    },
     // we accept userId, username, email
     inviteUserToBoard(username, boardId) {
       check(username, String);
@@ -726,8 +853,9 @@ if (Meteor.isServer) {
           throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (Settings.findOne().disableRegistration)
+        if (Settings.findOne({ disableRegistration: true })) {
           throw new Meteor.Error('error-user-notCreated');
+        }
         // Set in lowercase email before creating account
         const email = username.toLowerCase();
         username = email.substring(0, posAt);
@@ -748,6 +876,16 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
+      //Check if there is a subtasks board
+      if (board.subtasksDefaultBoardId) {
+        const subBoard = Boards.findOne(board.subtasksDefaultBoardId);
+        //If there is, also add user to that board
+        if (subBoard) {
+          subBoard.addMember(user._id);
+          user.addInvite(subBoard._id);
+        }
+      }
+
       try {
         const params = {
           user: user.username,
@@ -766,6 +904,16 @@ if (Meteor.isServer) {
         throw new Meteor.Error('email-fail', e.message);
       }
       return { username: user.username, email: user.emails[0].address };
+    },
+    impersonate(userId) {
+      check(userId, String);
+
+      if (!Meteor.users.findOne(userId))
+        throw new Meteor.Error(404, 'User not found');
+      if (!Meteor.user().isAdmin)
+        throw new Meteor.Error(403, 'Permission denied');
+
+      this.setUserId(userId);
     },
   });
   Accounts.onCreateUser((options, user) => {
@@ -790,7 +938,7 @@ if (Meteor.isServer) {
       user.profile = {
         initials,
         fullname: user.services.oidc.fullname,
-        boardView: 'board-view-lists',
+        boardView: 'board-view-swimlanes',
       };
       user.authenticationMethod = 'oauth2';
 
@@ -808,7 +956,8 @@ if (Meteor.isServer) {
       existingUser.profile = user.profile;
       existingUser.authenticationMethod = user.authenticationMethod;
 
-      Meteor.users.remove({ _id: existingUser._id }); // remove existing record
+      Meteor.users.remove({ _id: user._id });
+      Meteor.users.remove({ _id: existingUser._id }); // is going to be created again
       return existingUser;
     }
 
@@ -848,7 +997,7 @@ if (Meteor.isServer) {
       );
     } else {
       user.profile = { icode: options.profile.invitationcode };
-      user.profile.boardView = 'board-view-lists';
+      user.profile.boardView = 'board-view-swimlanes';
 
       // Deletes the invitation code after the user was created successfully.
       setTimeout(
@@ -861,6 +1010,39 @@ if (Meteor.isServer) {
     }
   });
 }
+
+const addCronJob = _.debounce(
+  Meteor.bindEnvironment(function notificationCleanupDebounced() {
+    // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
+    const envRemoveAge =
+      process.env.NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE;
+    // default notifications will be removed 2 days after they are read
+    const defaultRemoveAge = 2;
+    const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;
+
+    SyncedCron.add({
+      name: 'notification_cleanup',
+      schedule: parser => parser.text('every 1 days'),
+      job: () => {
+        for (const user of Users.find()) {
+          if (!user.profile || !user.profile.notifications) continue;
+          for (const notification of user.profile.notifications) {
+            if (notification.read) {
+              const removeDate = new Date(notification.read);
+              removeDate.setDate(removeDate.getDate() + removeAge);
+              if (removeDate <= new Date()) {
+                user.removeNotification(notification.activity);
+              }
+            }
+          }
+        }
+      },
+    });
+
+    SyncedCron.start();
+  }),
+  500,
+);
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
@@ -875,6 +1057,9 @@ if (Meteor.isServer) {
       },
       { unique: true },
     );
+    Meteor.defer(() => {
+      addCronJob();
+    });
   });
 
   // OLD WAY THIS CODE DID WORK: When user is last admin of board,
@@ -926,6 +1111,7 @@ if (Meteor.isServer) {
     incrementBoards(_.difference(newIds, oldIds), +1);
   });
 
+  // Override getUserId so that we can TODO get the current userId
   const fakeUserId = new Meteor.EnvironmentVariable();
   const getUserId = CollectionHooks.getUserId;
   CollectionHooks.getUserId = () => {
@@ -959,6 +1145,10 @@ if (Meteor.isServer) {
         });
         */
 
+        const Future = require('fibers/future');
+        const future1 = new Future();
+        const future2 = new Future();
+        const future3 = new Future();
         Boards.insert(
           {
             title: TAPi18n.__('templates'),
@@ -986,6 +1176,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.cardTemplatesSwimlaneId': swimlaneId },
                 });
+                future1.return();
               },
             );
 
@@ -1003,6 +1194,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.listTemplatesSwimlaneId': swimlaneId },
                 });
+                future2.return();
               },
             );
 
@@ -1020,15 +1212,22 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.boardTemplatesSwimlaneId': swimlaneId },
                 });
+                future3.return();
               },
             );
           },
         );
+        // HACK
+        future1.wait();
+        future2.wait();
+        future3.wait();
       });
     });
   }
 
   Users.after.insert((userId, doc) => {
+    // HACK
+    doc = Users.findOne({ _id: doc._id });
     if (doc.createdThroughApi) {
       // The admin user should be able to create a user despite disabling registration because
       // it is two different things (registration and creation).
@@ -1091,6 +1290,25 @@ if (Meteor.isServer) {
       Authentication.checkLoggedIn(req.userId);
       const data = Meteor.users.findOne({ _id: req.userId });
       delete data.services;
+
+      // get all boards where the user is member of
+      let boards = Boards.find(
+        {
+          type: 'board',
+          'members.userId': req.userId,
+        },
+        {
+          fields: { _id: 1, members: 1 },
+        },
+      );
+      boards = boards.map(b => {
+        const u = b.members.find(m => m.userId === req.userId);
+        delete u.userId;
+        u.boardId = b._id;
+        return u;
+      });
+
+      data.boards = boards;
       JsonRoutes.sendResult(res, {
         code: 200,
         data,
@@ -1143,9 +1361,29 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
+
+      // get all boards where the user is member of
+      let boards = Boards.find(
+        {
+          type: 'board',
+          'members.userId': id,
+        },
+        {
+          fields: { _id: 1, members: 1 },
+        },
+      );
+      boards = boards.map(b => {
+        const u = b.members.find(m => m.userId === id);
+        delete u.userId;
+        u.boardId = b._id;
+        return u;
+      });
+
+      const user = Meteor.users.findOne({ _id: id });
+      user.boards = boards;
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Meteor.users.findOne({ _id: id }),
+        data: user,
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -1180,10 +1418,13 @@ if (Meteor.isServer) {
       let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          data = Boards.find({
-            'members.userId': id,
-            'members.isAdmin': true,
-          }).map(function(board) {
+          data = Boards.find(
+            {
+              'members.userId': id,
+              'members.isAdmin': true,
+            },
+            { sort: { sort: 1 /* boards default sorting */ } },
+          ).map(function(board) {
             if (board.hasMember(req.userId)) {
               board.removeMember(req.userId);
             }

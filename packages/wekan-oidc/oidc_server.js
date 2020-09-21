@@ -9,8 +9,22 @@ OAuth.registerService('oidc', 2, null, function (query) {
   var accessToken = token.access_token || token.id_token;
   var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
-  var userinfo = getUserInfo(accessToken);
+  var claimsInAccessToken = (process.env.OAUTH2_ADFS_ENABLED === 'true' || process.env.OAUTH2_ADFS_ENABLED === true) || false;
+
+  var userinfo;
+  if(claimsInAccessToken)
+  {
+    // hack when using custom claims in the accessToken. On premise ADFS
+    userinfo = getTokenContent(accessToken);
+  }
+  else
+  {
+    // normal behaviour, getting the claims from UserInfo endpoint.
+    userinfo = getUserInfo(accessToken);
+  }
+
   if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
+  if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
   if (debug) console.log('XXX: userinfo:', userinfo);
 
   var serviceData = {};
@@ -72,7 +86,6 @@ var getToken = function (query) {
           client_secret: OAuth.openSecret(config.secret),
           redirect_uri: OAuth._redirectUri('oidc', config),
           grant_type: 'authorization_code',
-          scope: requestPermissions,
           state: query.state
         }
       }

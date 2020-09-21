@@ -18,6 +18,11 @@ BlazeComponent.extendComponent({
           Filter.members.toggle(this.currentData()._id);
           Filter.resetExceptions();
         },
+        'click .js-toggle-assignee-filter'(evt) {
+          evt.preventDefault();
+          Filter.assignees.toggle(this.currentData()._id);
+          Filter.resetExceptions();
+        },
         'click .js-toggle-archive-filter'(evt) {
           evt.preventDefault();
           Filter.archive.toggle(this.currentData()._id);
@@ -152,8 +157,9 @@ Template.disambiguateMultiMemberPopup.events({
 });
 
 Template.moveSelectionPopup.events({
-  'click .js-select-list'() {
-    mutateSelectedCards('move', this._id);
+  'click .js-select-list'(event) {
+    // Move the minicard to the end of the target list
+    mutateSelectedCards('moveToEndOfList', { listId: this._id });
     EscapeActions.executeUpTo('multiselection');
   },
 });

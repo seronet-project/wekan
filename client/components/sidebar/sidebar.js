@@ -16,7 +16,7 @@ const viewTitles = {
 
 BlazeComponent.extendComponent({
   mixins() {
-    return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
+    return [Mixins.InfiniteScrolling];
   },
 
   onCreated() {
@@ -182,6 +182,10 @@ Template.memberPopup.helpers({
 
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-open-rules-view'() {
+    Modal.openWide('rulesMain');
+    Popup.close();
+  },
   'click .js-custom-fields'() {
     Sidebar.setView('customFields');
     Popup.close();
@@ -209,9 +213,20 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
+  'click .js-export-board': Popup.open('exportBoard'),
+});
+
+Template.boardMenuPopup.onCreated(function() {
+  this.apiEnabled = new ReactiveVar(false);
+  Meteor.call('_isApiEnabled', (e, result) => {
+    this.apiEnabled.set(result);
+  });
 });
 
 Template.boardMenuPopup.helpers({
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
   exportUrl() {
     const params = {
       boardId: Session.get('currentBoard'),
@@ -391,6 +406,70 @@ BlazeComponent.extendComponent({
   },
 }).register('chooseBoardSourcePopup');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'exportBoard';
+  },
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
+  exportUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
+  },
+  exportCsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportTsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+      delimiter: '\t',
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportJsonFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.json`;
+  },
+  exportCsvFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.csv`;
+  },
+  exportTsvFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.tsv`;
+  },
+}).register('exportBoardPopup');
+
+Template.exportBoard.events({
+  'click .html-export-board': async event => {
+    event.preventDefault();
+    await ExportHtml(Popup)();
+  },
+});
+
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
@@ -495,7 +574,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },
@@ -673,7 +752,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },

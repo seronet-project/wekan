@@ -42,8 +42,14 @@ tx pull -f -l sl_SI
 echo "Spanish:"
 tx pull -f -l es
 
+echo "Spanish (Chile):"
+tx pull -f -l es_CL
+
 echo "Spanish (Argentina):"
 tx pull -f -l es_AR
+
+echo "Spanish (Peru):"
+tx pull -f -l es_PE
 
 echo "Basque:"
 tx pull -f -l eu

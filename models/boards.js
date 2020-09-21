@@ -18,18 +18,14 @@ Boards.attachSchema(
       type: String,
       // eslint-disable-next-line consistent-return
       autoValue() {
-        // XXX We need to improve slug management. Only the id should be necessary
-        // to identify a board in the code.
-        // XXX If the board title is updated, the slug should also be updated.
         // In some cases (Chinese and Japanese for instance) the `getSlug` function
         // return an empty string. This is causes bugs in our application so we set
         // a default slug in this case.
-        if (this.isInsert && !this.isSet) {
+        // Improvment would be to change client URL after slug is changed
+        const title = this.field('title');
+        if (title.isSet && !this.isSet) {
           let slug = 'board';
-          const title = this.field('title');
-          if (title.isSet) {
-            slug = getSlug(title.value) || slug;
-          }
+          slug = getSlug(title.value) || slug;
           return slug;
         }
       },
@@ -255,6 +251,9 @@ Boards.attachSchema(
         'dark',
         'relax',
         'corteza',
+        'clearblue',
+        'natural',
+        'modern',
       ],
       // eslint-disable-next-line consistent-return
       autoValue() {
@@ -492,6 +491,14 @@ Boards.attachSchema(
        */
       type: String,
       defaultValue: 'board',
+    },
+    sort: {
+      /**
+       * Sort value
+       */
+      type: Number,
+      decimal: true,
+      defaultValue: -1,
     },
   }),
 );
@@ -806,7 +813,11 @@ Boards.helpers({
     if (term) {
       const regex = new RegExp(term, 'i');
 
-      query.$or = [{ title: regex }, { description: regex }];
+      query.$or = [
+        { title: regex },
+        { description: regex },
+        { customFields: { $elemMatch: { value: regex } } },
+      ];
     }
 
     return Cards.find(query, projection);
@@ -1182,6 +1193,10 @@ Boards.mutations({
   setPresentParentTask(presentParentTask) {
     return { $set: { presentParentTask } };
   },
+
+  move(sortIndex) {
+    return { $set: { sort: sortIndex } };
+  },
 });
 
 function boardRemover(userId, doc) {
@@ -1198,6 +1213,14 @@ if (Meteor.isServer) {
     update: allowIsBoardAdmin,
     remove: allowIsBoardAdmin,
     fetch: ['members'],
+  });
+
+  // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
+  Boards.allow({
+    update(userId, board, fieldNames) {
+      return _.contains(fieldNames, 'sort');
+    },
+    fetch: [],
   });
 
   // The number of users that have starred this board is managed by trusted code
@@ -1278,6 +1301,17 @@ if (Meteor.isServer) {
     },
   });
 }
+
+// Insert new board at last position in sort order.
+Boards.before.insert((userId, doc) => {
+  const lastBoard = Boards.findOne(
+    { sort: { $exists: true } },
+    { sort: { sort: -1 } },
+  );
+  if (lastBoard && typeof lastBoard.sort !== 'undefined') {
+    doc.sort = lastBoard.sort + 1;
+  }
+});
 
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
@@ -1462,7 +1496,7 @@ if (Meteor.isServer) {
           'members.userId': paramUserId,
         },
         {
-          sort: ['title'],
+          sort: { sort: 1 /* boards default sorting */ },
         },
       ).map(function(board) {
         return {
@@ -1492,7 +1526,12 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.find({ permission: 'public' }).map(function(doc) {
+        data: Boards.find(
+          { permission: 'public' },
+          {
+            sort: { sort: 1 /* boards default sorting */ },
+          },
+        ).map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,

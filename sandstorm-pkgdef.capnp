@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 378,
+    appVersion = 440,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "3.78.0~2020-02-12"),
+    appMarketingVersion = (defaultText = "4.40.0~2020-09-18"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -240,6 +240,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "WITH_API", value = "true"),
     (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
+    (key = "NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE", value=""),
     (key = "BIGEVENTS_PATTERN", value="NONE"),
     (key = "MATOMO_ADDRESS", value=""),
     (key = "MATOMO_SITE_ID", value=""),
@@ -248,7 +249,8 @@ const myCommand :Spk.Manifest.Command = (
     (key = "BROWSER_POLICY_ENABLED", value="true"),
     (key = "TRUSTED_URL", value=""),
     (key = "WEBHOOKS_ATTRIBUTES", value=""),
-    (key = "OAUTH2_ENABLED", value=""),
+    (key = "OAUTH2_ENABLED", value="false"),
+    (key = "OAUTH2_ADFS_ENABLED", value="false"),
     (key = "OAUTH2_CLIENT_ID", value="false"),
     (key = "OAUTH2_SECRET", value=""),
     (key = "OAUTH2_SERVER_URL", value=""),
@@ -256,6 +258,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH2_USERINFO_ENDPOINT", value=""),
     (key = "OAUTH2_TOKEN_ENDPOINT", value=""),
     (key = "LDAP_ENABLE", value="false"),
+    (key = "PASSWORD_LOGIN_ENABLED", value="true"),
     (key = "SANDSTORM", value="1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]

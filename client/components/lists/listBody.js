@@ -8,7 +8,7 @@ BlazeComponent.extendComponent({
   },
 
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   openForm(options) {
@@ -77,7 +77,7 @@ BlazeComponent.extendComponent({
       else if (
         Utils.boardView() === 'board-view-lists' ||
         Utils.boardView() === 'board-view-cal' ||
-        !Utils.boardView
+        !Utils.boardView()
       )
         swimlaneId = board.getDefaultSwimline()._id;
 
@@ -411,7 +411,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -523,7 +523,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   onCreated() {
@@ -597,7 +597,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -658,10 +658,7 @@ BlazeComponent.extendComponent({
               _id = element.copy(this.boardId, this.swimlaneId, this.listId);
               // 1.B Linked card
             } else {
-              delete element._id;
-              element.type = 'cardType-linkedCard';
-              element.linkedId = element.linkedId || element._id;
-              _id = Cards.insert(element);
+              _id = element.link(this.boardId, this.swimlaneId, this.listId);
             }
             Filter.addException(_id);
             // List insertion
@@ -675,7 +672,7 @@ BlazeComponent.extendComponent({
             element.sort = Boards.findOne(this.boardId)
               .swimlanes()
               .count();
-            element.type = 'swimlalne';
+            element.type = 'swimlane';
             _id = element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {
             board = Boards.findOne(element.linkedId);
@@ -724,7 +721,7 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     this.spinner = this.find('.sk-spinner-list');
-    this.container = this.$(this.spinner).parents('.js-perfect-scrollbar')[0];
+    this.container = this.$(this.spinner).parents('.list-body')[0];
 
     $(this.container).on(
       `scroll.spinner_${this.swimlaneId}_${this.listId}`,
@@ -743,9 +740,25 @@ BlazeComponent.extendComponent({
   },
 
   updateList() {
+    // Use fallback when requestIdleCallback is not available on iOS and Safari
+    // https://www.afasterweb.com/2017/11/20/utilizing-idle-moments/
+    checkIdleTime =
+      window.requestIdleCallback ||
+      function(handler) {
+        const startTime = Date.now();
+        return setTimeout(function() {
+          handler({
+            didTimeout: false,
+            timeRemaining() {
+              return Math.max(0, 50.0 - (Date.now() - startTime));
+            },
+          });
+        }, 1);
+      };
+
     if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      window.requestIdleCallback(() => this.updateList());
+      checkIdleTime(() => this.updateList());
     }
   },
 

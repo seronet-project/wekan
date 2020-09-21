@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v3.78.0",
+  "version": "v4.40.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
@@ -40,6 +40,7 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-config-meteor": "0.0.9",
     "eslint-config-prettier": "^3.6.0",
@@ -50,24 +51,32 @@
     "lint-staged": "^7.3.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.19.1",
-    "prettier-eslint": "^8.8.2"
+    "prettier-eslint": "^9.0.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
-    "ajv": "^5.0.0",
+    "@babel/core": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "@root/request": "^1.6.1",
+    "ajv": "^6.12.4",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
-    "gridfs-stream": "^0.5.3",
-    "ldapjs": "^1.0.2",
-    "meteor-node-stubs": "^0.4.1",
-    "mongodb": "^3.5.0",
+    "fibers": "^5.0.0",
+    "flatted": "^3.0.4",
+    "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
+    "jszip": "^3.4.0",
+    "ldapjs": "^2.1.1",
+    "markdown-it": "^11.0.0",
+    "markdown-it-emoji": "^1.4.0",
+    "meteor-node-stubs": "^1.0.1",
+    "mongodb": "^3.6.2",
     "os": "^0.1.1",
     "page": "^1.11.5",
-    "qs": "^6.9.1",
-    "source-map-support": "^0.5.16",
-    "xss": "^1.0.6"
+    "papaparse": "^5.2.0",
+    "qs": "^6.9.4",
+    "source-map-support": "^0.5.19",
+    "xss": "^1.0.8"
   }
 }
