@@ -1,3 +1,28 @@
+# v4.46 2020-10-30 Wekan release
+
+This release adds the following updates:
+
+- [Upgrade to Meteor 2.0-beta.4](https://github.com/wekan/wekan/commit/af583145ed2b36af8e6c72765fd35d70a292fad6).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
+
+- [Fix: Use current boardId when a worker moves a card](https://github.com/wekan/wekan/pull/3323).
+  Thanks to jtbairdsr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.45 2020-10-30 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix can not upload and download files, by changing back to Node.js 12.19.0 and adding
+  fast-render](https://github.com/wekan/wekan/commit/d2f434879caa20d69651f23fa2124074f55c9893).
+  Current file storing to MongoDB code was not yet compatible with newer Node.js.
+  Thanks to eskogito and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.44 2020-10-28 Wekan release
 
 This release adds the following new features:
