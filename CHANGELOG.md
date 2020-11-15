@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.53 2020-11-15 Wekan release
 
 This release adds the following updates:
 
@@ -14,6 +14,13 @@ This release adds the following updates:
   Thanks to xet7.
 - [Update markdown-it and markdown-it-emoji dependencies](https://github.com/wekan/wekan/commit/222fca3ad7aa2b67329dca64e84eb72899fd8137).
   Thanks to developers of markdown-it and markdown-it-emoji.
+
+and adds the following improvements:
+
+- [Minor improvements to Modern Dark theme](https://github.com/wekan/wekan/pull/3348).
+  Thanks to jghaanstra.
+- [Added missing bottom padding to lists](https://github.com/wekan/wekan/pull/3351).
+  Thanks to danger89.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
