@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.56 2020-11-30 Wekan release
 
 This release adds the following new features:
 
@@ -16,6 +16,11 @@ This release adds the following new features:
   2) Tried to fix command:
   `sudo snap set wekan mongo-url='...'`](https://github.com/wekan/wekan/commit/5510c2a37dc6bcfa0ec588eceb8dc9f32cec9851).
   Thanks to xet7.
+
+and adds the following improvements:
+
+- [Improvements in activities design](https://github.com/wekan/wekan/pull/3374).
+  Thanks to helioguardabaxo.
 
 and fixes the following bugs:
 
