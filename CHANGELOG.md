@@ -1,3 +1,25 @@
+# v4.66 2020-12-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Mobile miniscreen: Drag handle not visible in long checklist item
+  text](https://github.com/wekan/wekan/commit/a8453657c95a4bde2ae86b4c77e55bb2174adf26).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.65 2020-12-26 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Drag and drop between checklists closes the card sometimes on
+  Firefox](https://github.com/wekan/wekan/commit/c7808c5c03f98eae709e5ef89e8e17af4689cb2e).
+  xet7 thanks mfilser about [similar fix of appendTo parent](https://github.com/wekan/wekan/pull/3342)
+  that did work here too to fix this.
+  Thanks to mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.64 2020-12-24 Wekan release
 
 This release fixes the following bugs:
