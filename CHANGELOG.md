@@ -1,4 +1,29 @@
-# Upcoming Wekan release
+# v4.90 2021-01-28 Wekan release
+
+This release adds the following new features:
+
+- [Create unique board names when importing](https://github.com/wekan/wekan/pull/3499).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
+
+- [Added missing backtick quotes](https://github.com/wekan/wekan/commit/bf7b1789ec16e3c52397318c799ec5a0fc2de3a5).
+  Thanks to xet7.
+- [Fix some bugs when importing Wekan JSON](https://github.com/wekan/wekan/pull/3500).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.89 2021-01-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix quotes in Global Search](https://github.com/wekan/wekan/commit/0ff215f78f03c81d153dfc0ffa08fac94b542ec2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.88 2021-01-28 Wekan release
 
 This release adds the following new features:
 
@@ -19,6 +44,10 @@ and fixes the following bugs:
 
 - [Changed method to create initials same as others for new user of oidc](https://github.com/wekan/wekan/pull/3489).
   Thanks to sato-64bit.
+- [Removed quotes from docker-compose.yml settings](https://github.com/wekan/wekan/commit/b1cdcda8ed78d48505a8da5180d7aed46a24fd64).
+  Thanks to XL-Reaper, Vinc89 and xet7.
+- [Repair LDAP_REJECT_UNAUTHORIZED=false CVE-2021-3309](https://github.com/wekan/wekan/pull/3497).
+  Thanks to robert-scheck.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
