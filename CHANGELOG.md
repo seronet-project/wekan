@@ -1,9 +1,14 @@
-# Upcoming Wekan release
+# 4.93 2021-02-06 Wekan release
 
 This release adds the following new features:
 
 - [Add the ability to call get_user operation with username](https://github.com/wekan/wekan/pull/3530).
   Thanks to magicbelette.
+
+and adds the following updates:
+
+- [Updated Ubuntu base image in Dockerfile](https://github.com/wekan/wekan/commit/bcdaf77a9c675530cfa21d038e8abd7c62aef70d).
+  Thanks to Ubuntu and xet7.
 
 and fixes the following bugs:
 
@@ -13,6 +18,10 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 - [Fixed file permissions in build scripts](https://github.com/wekan/wekan/commit/ea697f2238842893953dee76bed03ffd5b4a107e).
   Thanks to xet7.
+- [Red line below the avatar now correctly on FireFox](https://github.com/wekan/wekan/pull/3532).
+  Thanks to mfilser.
+- [Notifications, enable line wrapping](https://github.com/wekan/wekan/pull/3533).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
