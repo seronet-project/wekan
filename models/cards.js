@@ -702,7 +702,9 @@ Cards.helpers({
     const definitions = CustomFields.find({
       boardIds: { $in: [this.boardId] },
     }).fetch();
-
+    if (!definitions) {
+      return {};
+    }
     // match right definition to each field
     if (!this.customFields) return [];
     const ret = this.customFields.map(customField => {
@@ -731,11 +733,14 @@ Cards.helpers({
         definition,
       };
     });
+    // at linked cards custom fields definition is not found
     ret.sort(
       (a, b) =>
+        a.definition      !== undefined &&
+        b.definition      !== undefined &&
         a.definition.name !== undefined &&
         b.definition.name !== undefined &&
-        a.definition.name.localeCompare(b.definition.name),
+        a.definition.name.localeCompare(b.definition.name)
     );
     return ret;
   },
