@@ -6,6 +6,8 @@ This release adds the following new features:
   Thanks to pichouk.
 - [Added possibility to specify hours in single digits in 24 hour format](https://github.com/wekan/wekan/pull/3557).
   Thanks to lindhork.
+- [Added replacement from comma to dot](https://github.com/wekan/wekan/pull/3564).
+  Thanks to lindhork.
 
 and adds the following improvements:
 
@@ -13,6 +15,16 @@ and adds the following improvements:
   Thanks to mfilser.
 - [Teams/Organizations: Added more code to Admin Panel for saving and editing. In Progress](https://github.com/wekan/wekan/commit/1bc07b1b4a3e8cd1a177f3f1776ed8e189bc627a).
   Thanks to xet7.
+- [Mobile View, list header is now always at top and only lists/cards view have a scroll area](https://github.com/wekan/wekan/pull/3563).
+  Thanks to mfilser.
+- [Added ChangeLog update script](https://github.com/wekan/wekan/commit/c7ec07ed4748fe9b00f622af7472fd291cf1a3ce).
+  Thanks to xet7.
+- [Helm: Made SecretEnv a secret and added default mongodb name as Wekan](https://github.com/wekan/wekan/pull/3570).
+  Thanks to meerkampdvv.
+- [Checklist drag handle now at the left side (same place as for the checklist items)](https://github.com/wekan/wekan/pull/3571).
+  Thanks to mfilser.
+- [Lists, show also 0 cards at column description](https://github.com/wekan/wekan/pull/3572).
+  Thanks to mfilser.
 
 and adds the following updates:
 
@@ -27,6 +39,8 @@ and fixes the following bugs:
   Thanks to lindhork.
 - [Changed default behaviour for BIGEVENTS that no activity matches it](https://github.com/wekan/wekan/pull/3561).
   Thanks to bronger.
+- [Modern theme: Remove font color when the card has a color](https://github.com/wekan/wekan/pull/3569).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
