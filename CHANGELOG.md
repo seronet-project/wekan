@@ -1,5 +1,14 @@
 # Upcoming Wekan release
 
+This releases fixes the following bugs:
+
+- [Fix development script to escape character](https://github.com/wekan/wekan/commit/2e9ad941c0b63b384ee215548a3f31b4a635b28b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.96 2021-02-13 Wekan release
+
 This release adds the following new features:
 
 - [Add /api/boards_count endpoint for statistics](https://github.com/wekan/wekan/pull/3556).
@@ -13,7 +22,7 @@ and adds the following improvements:
 
 - [Checklistitems are now inserted always at the end of the checklist](https://github.com/wekan/wekan/pull/3551).
   Thanks to mfilser.
-- [Teams/Organizations: Added more code to Admin Panel for saving and editing. In Progress](https://github.com/wekan/wekan/commit/1bc07b1b4a3e8cd1a177f3f1776ed8e189bc627a).
+- [Teams/Organizations: Added more code to Admin Panel for saving and editing. In Progress, does not work yet](https://github.com/wekan/wekan/commit/1bc07b1b4a3e8cd1a177f3f1776ed8e189bc627a).
   Thanks to xet7.
 - [Mobile View, list header is now always at top and only lists/cards view have a scroll area](https://github.com/wekan/wekan/pull/3563).
   Thanks to mfilser.
