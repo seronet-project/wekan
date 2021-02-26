@@ -1,10 +1,27 @@
-# Upcoming Wekan release
+# v5.00 2021-02-25 Wekan release
 
-This release adds the following updates:
+This release fixes the following bugs:
+
+- [Fixed Unable to remove old Board, reappears](https://github.com/wekan/wekan/commit/332f830cc2e44ab66ca891690b09a425b9fd7e68).
+  Thanks to chirrut2, uusijani, cimm, anicolaides, Philipoo0 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.99 2021-02-25 Wekan release
+
+This release fixes the following CRITICAL SECURITY ISSUES:
+
+- [Fixed SMTP password visible to Admin at Admin Panel by using browser inspect
+  to see behind asterisks](https://github.com/wekan/wekan/commit/71725f1b262b385162b2544f10658a0bc22f6b41).
+  Thanks to Georg Krause and xet7.
+
+and adds the following updates:
 
 - [Update wekan/releases/up.sh script: Can not build ppc64le version because OpenPower Minicloud
   is having emergency maintenance](https://github.com/wekan/wekan/commit/a43736b5c6196c65770d8ae17af927406dce2c43).
   Thanks to xet7.
+- [Updated to Meteor 2.1](https://github.com/wekan/wekan/commit/f2241ba3de82e393161ee1c456e1a947c6bdb5fc).
+  Thanks to Meteor developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
