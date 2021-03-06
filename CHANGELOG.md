@@ -1,10 +1,21 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
 
-- [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build corretly with
+- [Added autolinking settings in Admin Panel](https://github.com/wekan/wekan/pull/3633).
+  Thanks to chrisi51.
+- [Add custom field editing to the REST API](https://github.com/wekan/wekan/pull/3593).
+  Thanks to dudeofawesome.
+
+and fixes the following bugs:
+
+- [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build correctly with
   it](https://github.com/wekan/wekan/commit/a44ca39eb84508441f0f8bdac852745f417f12e7).
   Thanks to xet7.
+- [Fix search on labels server error](https://github.com/wekan/wekan/pull/3634).
+  Thanks to jrsupplee.
+- [Fixed Bug: inconsistent use of relative/absolute URLs](https://github.com/wekan/wekan/pull/3635).
+  Thanks to Majed6.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
