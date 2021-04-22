@@ -32,8 +32,11 @@ export class CardSearchPagedComponent extends BlazeComponent {
         that.searching.set(false);
         that.hasResults.set(false);
         that.serverError.set(true);
+        // eslint-disable-next-line no-console
         console.log('Error.reason:', error.reason);
+        // eslint-disable-next-line no-console
         console.log('Error.message:', error.message);
+        // eslint-disable-next-line no-console
         console.log('Error.stack:', error.stack);
       },
     };
@@ -62,7 +65,6 @@ export class CardSearchPagedComponent extends BlazeComponent {
     // console.log('getting results');
     const sessionData = this.getSessionData();
     // eslint-disable-next-line no-console
-    // console.log('selector:', sessionData.getSelector());
     console.log('session data:', sessionData);
     const cards = [];
     sessionData.cards.forEach(cardId => {
@@ -72,7 +74,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     if (this.queryErrors.length) {
       // console.log('queryErrors:', this.queryErrorMessages());
       this.hasQueryErrors.set(true);
-      return null;
+      // return null;
     }
 
     if (cards) {
@@ -99,16 +101,20 @@ export class CardSearchPagedComponent extends BlazeComponent {
     }
   }
 
-  runGlobalSearch(queryParams) {
-    this.searching.set(true);
-    this.stopSubscription();
-    this.subscriptionHandle = Meteor.subscribe(
+  getSubscription(queryParams) {
+    return Meteor.subscribe(
       'globalSearch',
       this.sessionId,
       queryParams.params,
       queryParams.text,
       this.subscriptionCallbacks,
     );
+  }
+
+  runGlobalSearch(queryParams) {
+    this.searching.set(true);
+    this.stopSubscription();
+    this.subscriptionHandle = this.getSubscription(queryParams);
   }
 
   queryErrorMessages() {

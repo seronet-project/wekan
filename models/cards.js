@@ -1,3 +1,10 @@
+import {
+  ALLOWED_COLORS,
+  TYPE_CARD,
+  TYPE_LINKED_BOARD,
+  TYPE_LINKED_CARD,
+} from '../config/const';
+
 Cards = new Mongo.Collection('cards');
 
 // XXX To improve pub/sub performances a card document should include a
@@ -77,33 +84,7 @@ Cards.attachSchema(
     color: {
       type: String,
       optional: true,
-      allowedValues: [
-        'white',
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'silver',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     createdAt: {
       /**
@@ -155,9 +136,13 @@ Cards.attachSchema(
           /**
            * value attached to the custom field
            */
-          type: Match.OneOf(String, Number, Boolean, Date),
+          type: Match.OneOf(String, Number, Boolean, Date, [String]),
           optional: true,
           defaultValue: '',
+        },
+        'value.$': {
+          type: String,
+          optional: true,
         },
       }),
     },
@@ -301,7 +286,8 @@ Cards.attachSchema(
        * type of the card
        */
       type: String,
-      defaultValue: 'cardType-card',
+      defaultValue: TYPE_CARD,
+      // allowedValues: [TYPE_CARD, TYPE_LINKED_CARD, TYPE_LINKED_BOARD, TYPE_TEMPLATE_CARD],
     },
     linkedId: {
       /**
@@ -2335,11 +2321,12 @@ if (Meteor.isServer) {
       const card = Cards.findOne(doc._id);
       const list = card.list();
       if (list) {
-        // change list modifiedAt, when user modified the key values in timingaction array, if it's endAt, put the modifiedAt of list back to one year ago for sorting purpose
-        const modifiedAt = new Date(
-          new Date(value).getTime() -
-            (action === 'endAt' ? 365 * 24 * 3600 * 1e3 : 0),
-        ); // set it as 1 year before
+        // change list modifiedAt, when user modified the key values in
+        // timingaction array, if it's endAt, put the modifiedAt of list
+        // back to one year ago for sorting purpose
+        const modifiedAt = moment()
+          .subtract(1, 'year')
+          .toISOString();
         const boardId = list.boardId;
         Lists.direct.update(
           {
