@@ -2,6 +2,20 @@
 
 This release adds the following new features:
 
+- [Copy Swimlane](https://github.com/wekan/wekan/pull/3753).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
+
+- [Fix Snap: Delete extra symlink that prevented building Snap](https://github.com/wekan/wekan/commit/45124a39f34a918b251a4a36fb016639b558f119).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.23 2021-04-22 Wekan release
+
+This release adds the following new features:
+
 - [Filtering by due date](https://github.com/wekan/wekan/pull/3731).
   Thanks to mcrute.
 
@@ -16,6 +30,8 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 - [Bug fix for Due Cards](https://github.com/wekan/wekan/pull/3741).
   Thanks to jrsupplee.
+- [Fix: The bg color of start at button is almost-due](https://github.com/wekan/wekan/pull/3749).
+  Thanks to listenerri.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
