@@ -1,3 +1,22 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Mermaid Diagram](https://github.com/wekan/wekan/wiki/Mermaid-Diagram).
+  Thanks to xuguotong and xet7.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/521ef8b6dad4f00662f22702331193c16b91b482).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Fix: BG color of StartDate](https://github.com/wekan/wekan/pull/3793).
+  Thanks to listenerri.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.27 2021-04-29 Wekan release
 
 This release fixes the following bugs:
