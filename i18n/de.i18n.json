@@ -1053,5 +1053,7 @@
     "Scaleout": "Scaleout-Warte-Symbol",
     "Wave": "Wellen-Warte-Symbol",
     "maximize-card": "Karte maximieren",
-    "minimize-card": "Karte minimieren"
+    "minimize-card": "Karte minimieren",
+    "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört."
 }

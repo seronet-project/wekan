@@ -1053,5 +1053,7 @@
     "Scaleout": "Vergrotende Wacht Spinner",
     "Wave": "Golvende Wacht Spinner",
     "maximize-card": "Maximaliseer Kaart",
-    "minimize-card": "Minimaliseer Kaart"
+    "minimize-card": "Minimaliseer Kaart",
+    "delete-org-warning-message": "Kan deze organisatie niet verwijderen want er is nog minimaal 1 gebruiker lid van.",
+    "delete-team-warning-message": "Kan dit team niet verwijderen want er is nog minimaal 1 gebruiker lid van."
 }

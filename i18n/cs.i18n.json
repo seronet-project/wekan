@@ -1053,5 +1053,7 @@
     "Scaleout": "Scaleout Wait Spinner",
     "Wave": "Wave Wait Spinner",
     "maximize-card": "Maximalizovat kartu",
-    "minimize-card": "Minimalizovat kartu"
+    "minimize-card": "Minimalizovat kartu",
+    "delete-org-warning-message": "Tuto organizaci není možné smazat, protože do ní patří uživatel(é)",
+    "delete-team-warning-message": "Tento tým není možné smazat, protože do nej patří uživatel(é)"
 }

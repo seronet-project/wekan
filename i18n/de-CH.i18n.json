@@ -1053,5 +1053,7 @@
     "Scaleout": "Scaleout Wait Spinner",
     "Wave": "Wave Wait Spinner",
     "maximize-card": "Karte maximieren",
-    "minimize-card": "Karte minimieren"
+    "minimize-card": "Karte minimieren",
+    "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden. Zumindest ein Benutzer ist ihr noch zugehörig.",
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden. Zumindest ein Benutzer ist ihm noch zugehörig."
 }
