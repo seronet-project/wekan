@@ -1,5 +1,8 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+Note: With Docker, please don't use latest tag. Only use release tags.
+See https://github.com/wekan/wekan/issues/3874
+
 # Upcoming Wekan release
 
 This release adds the following new features:
@@ -18,13 +21,32 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added testsuite](https://github.com/wekan/wekan/pull/3872).
   Thanks to jankapunkt.
-
+- [Delete user at REST API and `Admin Panel/People/People`](https://github.com/wekan/wekan/commit/9e16a405d8ca32a4e1be9cf89f8f978a2985593c).
+  There is still bug of leaving empty user avatars to boards: boards members, card members and assignees have
+  empty users. So it would be better to delete user from all boards before deleting user.
+  Thanks to darren-teo and xet7.
 
 and adds the following improvements:
 
 - [Removed unused exceljs from client bundle](https://github.com/wekan/wekan/pull/3871).
   This decreased Wekan browserside frontend amount of Javascript from 5.4 MB to 4.3 MB.
   Thanks to jankapunkt.
+- Added note: With Docker, please don't use latest tag. Only use release tags.
+  See https://github.com/wekan/wekan/issues/3874 .
+  [Part 1](https://github.com/wekan/wekan/commit/f18a57b059994b8a6a3588a69cf095fe599b3a90),
+  [Part 2](https://github.com/wekan/wekan/commit/c4cea9e71b467731fd8290538dd039b7691097af).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixed tests, that need to be in tests directory to not get build
+  errors](https://github.com/wekan/wekan/commit/56197274b6c4782fa20c7d9b5b9d58255d1f830a).
+  Thanks to xet7.
+- Try to fix tests.
+  [Part 1](https://github.com/wekan/wekan/commit/78555f57a7c2ba0fb3e3986608bcf11509af9a21),
+  [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373),
+  [Part 3](https://github.com/wekan/wekan/commit/0f34d407a43c8a63d882e69ea64ea17fc4b22c7b).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
