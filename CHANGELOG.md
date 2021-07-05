@@ -3,9 +3,14 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.37 2021-07-04 Wekan release
 
-This release fixes the following bugs:
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.2](https://github.com/wekan/wekan/commit/4feffd90e3f466609e09524e0ddccdafa2faef32).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
 
 - [Building OpenAPI docs is broken in Wekan v3.56](https://github.com/wekan/wekan/pull/3889).
   Thanks to bentiss.
